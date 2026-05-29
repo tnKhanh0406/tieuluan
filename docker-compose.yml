@@ -100,6 +100,7 @@ services:
       CART_SERVICE_URL: http://cart-service:8000
       PAYMENT_SERVICE_URL: http://payment-service:8000
       SHIPPING_SERVICE_URL: http://shipping-service:8000
+      PRODUCT_SERVICE_URL: http://product-service:8000
     depends_on:
       postgres:
         condition: service_healthy

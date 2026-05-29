@@ -6,76 +6,67 @@
   <title>Nova Market</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #eef2f7;
-      --panel: rgba(255, 255, 255, 0.9);
-      --panel-strong: #ffffff;
-      --ink: #101828;
-      --muted: #667085;
-      --line: rgba(16, 24, 40, 0.08);
+      --bg: #eef3f9;
+      --surface: rgba(255, 255, 255, 0.82);
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: rgba(15, 23, 42, 0.08);
       --accent: #0f766e;
       --accent-2: #ea580c;
-      --ok: #15803d;
-      --err: #b42318;
-      --shadow: 0 20px 60px rgba(16, 24, 40, 0.12);
+      --success: #15803d;
+      --danger: #b42318;
+      --shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
       --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--ink);
-      font-family: "Space Grotesk", sans-serif;
+      color: var(--text);
+      font-family: "Outfit", sans-serif;
       background:
-        radial-gradient(circle at 12% 18%, rgba(234, 88, 12, 0.14) 0, transparent 26%),
-        radial-gradient(circle at 88% 12%, rgba(15, 118, 110, 0.18) 0, transparent 22%),
-        linear-gradient(180deg, #fefefe 0%, var(--bg) 55%, #edf3f8 100%);
+        radial-gradient(circle at 10% 10%, rgba(234, 88, 12, 0.16) 0, transparent 24%),
+        radial-gradient(circle at 90% 0%, rgba(15, 118, 110, 0.16) 0, transparent 22%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 60%, #e8eef6 100%);
     }
-
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(rgba(16, 24, 40, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 24, 40, 0.025) 1px, transparent 1px);
-      background-size: 36px 36px;
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.26), transparent 72%);
+      background-image: linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 70%);
     }
-
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
+    button, input, textarea, select { font: inherit; }
 
     .app-shell {
-      position: relative;
-      max-width: 1480px;
+      width: min(1480px, calc(100vw - 28px));
       margin: 0 auto;
-      padding: 22px 18px 40px;
+      padding: 16px 0 36px;
+      position: relative;
+      z-index: 1;
     }
 
     .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 40;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 14px 18px;
-      margin-bottom: 16px;
+      padding: 16px 18px;
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
-      animation: rise 0.7s ease;
     }
 
     .brand {
@@ -86,46 +77,38 @@
     }
 
     .brand-mark {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
       display: grid;
       place-items: center;
       color: #fff;
+      font-weight: 800;
+      letter-spacing: -0.05em;
       background: linear-gradient(135deg, var(--accent), #14b8a6);
-      box-shadow: 0 12px 24px rgba(15, 118, 110, 0.25);
-      font-weight: 700;
-      letter-spacing: -0.04em;
+      box-shadow: 0 14px 28px rgba(15, 118, 110, 0.22);
     }
 
     .brand-copy h1 {
       margin: 0;
-      font-size: clamp(22px, 3vw, 32px);
-      letter-spacing: -0.03em;
+      font-size: clamp(22px, 2.8vw, 34px);
+      letter-spacing: -0.04em;
+      line-height: 1;
     }
 
     .brand-copy p {
-      margin: 4px 0 0;
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.45;
     }
 
     .topbar-actions {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 10px;
       align-items: center;
-    }
-
-    .pill {
-      padding: 9px 13px;
-      border-radius: 999px;
-      background: rgba(15, 118, 110, 0.08);
-      color: var(--accent);
-      border: 1px solid rgba(15, 118, 110, 0.14);
-      font-size: 13px;
-      font-weight: 600;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .nav {
@@ -134,216 +117,275 @@
       gap: 8px;
     }
 
-    .nav button {
-      border: 1px solid rgba(16, 24, 40, 0.08);
-      background: #fff;
-      color: var(--ink);
-      padding: 10px 14px;
+    .nav button,
+    .chip,
+    .pill,
+    .page-btn,
+    .shortcut {
+      border: 1px solid rgba(15, 23, 42, 0.08);
       border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      font-weight: 600;
     }
 
-    .nav button.active {
+    .nav button {
+      padding: 11px 16px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav button:hover,
+    button:hover:not(:disabled) { transform: translateY(-1px); }
+
+    .nav button.active,
+    .page-btn.active,
+    .chip.active,
+    .shortcut.active {
       color: #fff;
       background: linear-gradient(135deg, var(--accent), #14b8a6);
       border-color: transparent;
-      box-shadow: 0 10px 20px rgba(15, 118, 110, 0.22);
+      box-shadow: 0 12px 22px rgba(15, 118, 110, 0.2);
     }
 
-    .view {
+    .pill {
+      padding: 9px 13px;
+      color: #0f766e;
+      background: rgba(15, 118, 110, 0.08);
+      border-color: rgba(15, 118, 110, 0.12);
+      font-size: 13px;
+    }
+
+    main {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .page {
       display: none;
       animation: rise 0.55s ease;
     }
 
-    .view.active {
-      display: block;
-    }
+    .page.active { display: block; }
 
-    .shell {
-      display: grid;
-      grid-template-columns: 1.1fr 1.5fr 0.95fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .stack {
-      display: grid;
-      gap: 18px;
-    }
-
-    .panel {
+    .hero,
+    .panel,
+    .message,
+    .order-item,
+    .cart-item,
+    .detail-tile,
+    .status-tile {
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
-      background: var(--panel);
+      background: var(--surface);
       backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .panel-header { padding: 18px 18px 0; }
-    .panel-body { padding: 18px; }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 2px;
-    }
-
-    .section-title h3 {
-      margin: 0;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-    }
-
-    .section-title span {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .muted {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-      margin: 0;
-    }
-
     .hero {
-      background: linear-gradient(135deg, rgba(15, 118, 110, 0.98), rgba(15, 23, 42, 0.96));
+      padding: 22px;
+      background:
+        radial-gradient(circle at 92% 20%, rgba(255, 255, 255, 0.16) 0, transparent 22%),
+        linear-gradient(135deg, rgba(15, 118, 110, 0.98), rgba(15, 23, 42, 0.96));
       color: #fff;
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 28px 80px rgba(15, 23, 42, 0.26);
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto -60px -80px auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.09);
-      filter: blur(2px);
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+      gap: 18px;
+      align-items: start;
     }
 
     .hero h2 {
       margin: 0;
-      font-size: clamp(28px, 4vw, 46px);
-      letter-spacing: -0.04em;
-      line-height: 1.02;
+      font-size: clamp(30px, 4vw, 52px);
+      letter-spacing: -0.05em;
+      line-height: 0.98;
     }
 
     .hero p {
       margin: 14px 0 0;
-      max-width: 60ch;
-      line-height: 1.6;
+      max-width: 62ch;
       color: rgba(255, 255, 255, 0.86);
+      line-height: 1.65;
     }
 
-    .hero-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 14px;
-    }
-
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .metric {
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-    }
-
-    .metric strong {
-      display: block;
-      font-size: 20px;
-      letter-spacing: -0.03em;
-    }
-
-    .metric span {
-      display: block;
-      margin-top: 4px;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .actions,
-    .inline-actions,
+    .hero-points,
     .chip-row,
-    .chat-shortcuts,
-    .pagination {
+    .toolbar,
+    .inline-actions,
+    .pagination,
+    .detail-actions,
+    .ai-preset-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
 
-    .chip {
-      border: 1px solid transparent;
-      background: rgba(255, 255, 255, 0.10);
-      color: rgba(255, 255, 255, 0.88);
-      border-radius: 999px;
-      padding: 8px 12px;
+    .chip,
+    .shortcut {
+      padding: 9px 13px;
       font-size: 13px;
-      font-weight: 600;
-      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      cursor: pointer;
     }
 
-    .chip.active {
-      background: #fff;
-      color: var(--accent);
-      border-color: rgba(255, 255, 255, 0.9);
+    .hero-side {
+      display: grid;
+      gap: 12px;
     }
 
-    .status-pill {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+    .hero-stat {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-stat span {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.74);
+    }
+
+    .layout {
+      display: grid;
+      gap: 18px;
+    }
+
+    .layout.login {
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+    }
+
+    .layout.catalog,
+    .layout.cart,
+    .layout.ai,
+    .layout.detail {
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
+    }
+
+    #homePage .layout.catalog {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #homePage .layout.catalog > .panel {
+      grid-column: 1 / -1;
+    }
+
+    .layout.orders {
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.95fr);
+    }
+
+    .panel { padding: 18px; }
+
+    .panel-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-title span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.88);
     }
 
-    .fields { display: grid; gap: 10px; }
-    .field-row { display: grid; gap: 6px; }
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .grid-3,
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .summary-card,
+    .detail-tile,
+    .status-tile {
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 252, 255, 0.95));
+    }
+
+    .summary-card strong,
+    .detail-tile strong,
+    .status-tile strong {
+      display: block;
+      font-size: 19px;
+      letter-spacing: -0.03em;
+    }
+
+    .summary-card span,
+    .detail-tile span,
+    .status-tile span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .fields {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field-row {
+      display: grid;
+      gap: 6px;
+    }
 
     label {
       font-size: 13px;
-      font-weight: 600;
-      color: #344054;
+      font-weight: 700;
+      color: #334155;
     }
 
     input,
     textarea,
     select {
       width: 100%;
-      border: 1px solid rgba(16, 24, 40, 0.12);
+      padding: 12px 13px;
       border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
       background: rgba(255, 255, 255, 0.94);
-      color: var(--ink);
-      padding: 11px 12px;
+      color: var(--text);
       outline: none;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
     }
 
     input:focus,
     textarea:focus,
     select:focus {
-      border-color: rgba(15, 118, 110, 0.5);
+      border-color: rgba(15, 118, 110, 0.55);
       box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
     }
 
     textarea {
-      min-height: 96px;
+      min-height: 112px;
       resize: vertical;
     }
 
@@ -353,139 +395,144 @@
       padding: 11px 14px;
       cursor: pointer;
       font-weight: 700;
-      transition: transform 0.16s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      transition: transform 0.14s ease, opacity 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
-    button:hover { transform: translateY(-1px); }
     button:disabled {
-      cursor: not-allowed;
       opacity: 0.45;
-      transform: none;
-      box-shadow: none;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
     }
 
     .btn-primary {
       color: #fff;
       background: linear-gradient(135deg, var(--accent), #14b8a6);
-      box-shadow: 0 12px 24px rgba(15, 118, 110, 0.22);
+      box-shadow: 0 14px 26px rgba(15, 118, 110, 0.22);
     }
 
     .btn-secondary {
-      color: var(--accent);
+      color: #0f766e;
       background: rgba(15, 118, 110, 0.08);
       border-color: rgba(15, 118, 110, 0.12);
     }
 
     .btn-ghost {
-      color: var(--ink);
-      background: white;
-      border-color: rgba(16, 24, 40, 0.08);
+      color: var(--text);
+      background: #fff;
+      border-color: rgba(15, 23, 42, 0.08);
     }
 
-    .content-grid { display: grid; gap: 18px; }
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+    .status {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    .summary-card {
-      padding: 14px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 252, 255, 0.96));
-      border: 1px solid rgba(16, 24, 40, 0.06);
+    .status.ok { color: var(--success); }
+    .status.err { color: var(--danger); }
+
+    .info-banner {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(15, 118, 110, 0.08);
+      border: 1px solid rgba(15, 118, 110, 0.14);
+      color: #0f766e;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    .summary-card strong {
-      display: block;
-      font-size: 20px;
-      letter-spacing: -0.03em;
-    }
-
-    .summary-card span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .page-box {
-      display: none;
-      gap: 18px;
-    }
-
-    .page-box.active {
-      display: grid;
-    }
-
-    .home-shell {
-      grid-template-columns: minmax(0, 1.75fr) minmax(320px, 0.9fr);
-    }
-
-    .hero-card {
-      border-radius: var(--radius-xl);
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 14px;
-    }
-
-    .catalog-toolbar {
+    .search-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 10px;
+      align-items: center;
     }
 
-    .catalog-toolbar select {
-      width: auto;
-      min-width: 170px;
+    .search-bar input { flex: 1 1 280px; }
+
+    .toolbar {
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+
+    .toolbar .group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .toolbar select {
+      min-width: 180px;
+    }
+
+    .pagination {
+      justify-content: space-between;
+      align-items: center;
+      margin: 14px 0 8px;
+    }
+
+    .pagination-info {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .page-numbers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .page-btn {
+      min-width: 38px;
+      height: 38px;
+      padding: 0 12px;
+      cursor: pointer;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
     }
 
     .product-card {
       display: grid;
       gap: 10px;
       padding: 14px;
-      border-radius: 20px;
+      border-radius: 22px;
       background: linear-gradient(180deg, #ffffff, #fbfdff);
-      border: 1px solid rgba(16, 24, 40, 0.08);
-      overflow: hidden;
-      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      border: 1px solid rgba(15, 23, 42, 0.08);
       cursor: pointer;
+      transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
     }
 
     .product-card:hover {
       transform: translateY(-2px);
       border-color: rgba(15, 118, 110, 0.22);
-      box-shadow: 0 18px 30px rgba(16, 24, 40, 0.08);
+      box-shadow: 0 18px 34px rgba(15, 23, 42, 0.08);
     }
 
-    .product-card.selected {
-      border-color: rgba(15, 118, 110, 0.38);
-      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
-    }
-
-    .product-cover {
-      min-height: 138px;
+    .product-cover,
+    .detail-cover {
+      min-height: 150px;
       border-radius: 18px;
-      background:
-        radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.45) 0 12%, transparent 13%),
-        linear-gradient(135deg, rgba(15, 118, 110, 0.9), rgba(234, 88, 12, 0.92));
       padding: 14px;
       color: #fff;
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(255, 255, 255, 0.34) 0 14%, transparent 15%),
+        linear-gradient(135deg, rgba(15, 118, 110, 0.95), rgba(234, 88, 12, 0.94));
     }
 
-    .product-cover .badge {
+    .badge {
+      display: inline-flex;
+      width: fit-content;
       padding: 6px 10px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.16);
@@ -493,56 +540,61 @@
       font-size: 12px;
     }
 
-    .product-cover h4 {
+    .product-card h4,
+    .detail-cover h3 {
       margin: 0;
-      font-size: 16px;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
     }
 
-    .product-meta {
+    .product-meta,
+    .mini-meta {
       display: flex;
       justify-content: space-between;
       gap: 10px;
       flex-wrap: wrap;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.45;
     }
 
     .price {
+      font-weight: 800;
       color: var(--accent-2);
-      font-weight: 700;
-      font-size: 16px;
     }
 
-    .side-card {
-      padding: 16px;
+    .empty-state {
+      padding: 18px;
       border-radius: 18px;
-      background: rgba(247, 249, 252, 0.92);
-      border: 1px solid rgba(16, 24, 40, 0.06);
+      border: 1px dashed rgba(15, 23, 42, 0.16);
+      background: rgba(255, 255, 255, 0.64);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
     }
 
-    .list-box {
+    .list-box,
+    .conversation {
       display: grid;
       gap: 10px;
-      max-height: 340px;
+      max-height: 390px;
       overflow: auto;
       padding-right: 4px;
     }
 
     .cart-item,
     .order-item,
-    .message,
-    .service-block {
+    .message {
+      padding: 14px;
       border-radius: 18px;
       background: #fff;
-      border: 1px solid rgba(16, 24, 40, 0.08);
-      padding: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
     }
 
     .cart-item.selected {
-      border-color: rgba(15, 118, 110, 0.32);
-      background: rgba(15, 118, 110, 0.05);
+      border-color: rgba(15, 118, 110, 0.28);
+      background: rgba(15, 118, 110, 0.04);
     }
 
     .row {
@@ -553,390 +605,71 @@
       align-items: center;
     }
 
-    .hint {
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(15, 118, 110, 0.08);
-      color: #0f766e;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .empty-state {
-      padding: 16px;
-      border-radius: 18px;
-      border: 1px dashed rgba(16, 24, 40, 0.16);
-      background: rgba(255, 255, 255, 0.64);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .search-bar {
+    .cart-check {
       display: flex;
+      align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .search-bar input {
-      flex: 1 1 260px;
-    }
-
-    .pagination {
-      justify-content: space-between;
-      align-items: center;
-      margin: 14px 0 6px;
-    }
-
-    .pagination-info {
       font-size: 13px;
       color: var(--muted);
     }
 
-    .page-numbers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .page-btn {
-      min-width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      border: 1px solid rgba(16, 24, 40, 0.08);
-      background: #fff;
-      color: var(--ink);
-      font-weight: 700;
-      padding: 0 10px;
-      cursor: pointer;
-    }
-
-    .page-btn.active {
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent), #14b8a6);
-      border-color: transparent;
-      box-shadow: 0 10px 18px rgba(15, 118, 110, 0.24);
-    }
-
-    .cart-toolbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 10px 0 12px;
-    }
-
-    .cart-select {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-    .cart-select input {
+    .cart-check input {
       width: 18px;
       height: 18px;
       margin: 0;
       accent-color: var(--accent);
     }
 
-    .cart-summary {
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(15, 118, 110, 0.08);
-      border: 1px solid rgba(15, 118, 110, 0.16);
-      color: var(--accent);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .chat-box {
-      display: grid;
-      gap: 12px;
-    }
-
-    .conversation {
-      display: grid;
-      gap: 10px;
-      max-height: 360px;
-      overflow: auto;
-      padding-right: 4px;
-    }
-
-    .message.user {
-      background: rgba(15, 118, 110, 0.08);
-      border-color: rgba(15, 118, 110, 0.14);
-    }
-
-    .message.ai {
-      background: rgba(234, 88, 12, 0.08);
-      border-color: rgba(234, 88, 12, 0.16);
-    }
+    .conversation .message.user { background: rgba(15, 118, 110, 0.07); }
+    .conversation .message.ai { background: rgba(234, 88, 12, 0.07); }
 
     .message .meta {
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-size: 12px;
       color: var(--muted);
-      font-size: 12px;
     }
 
-    .chat-shortcuts .shortcut {
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(16, 24, 40, 0.08);
-      background: white;
-      color: var(--ink);
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .info-banner {
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(15, 118, 110, 0.08);
-      color: var(--accent);
-      border: 1px solid rgba(15, 118, 110, 0.14);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .status {
-      margin-top: 4px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .status.ok { color: var(--ok); }
-    .status.err { color: var(--err); }
-
-    .debug-log {
-      padding: 16px;
-      border-radius: var(--radius-xl);
-      background: rgba(15, 23, 42, 0.96);
-      color: #dbeafe;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: var(--shadow);
-    }
-
-    .debug-log h3 {
-      margin: 0 0 10px;
-      color: #f8fafc;
-      font-size: 16px;
-    }
-
-    .debug-log .muted { color: rgba(226, 232, 240, 0.72); }
-    .debug-log pre,
-    .service-output pre {
+    .ai-raw-json {
       margin: 0;
       white-space: pre-wrap;
       word-break: break-word;
-      font-family: "IBM Plex Mono", monospace;
       font-size: 12px;
-      line-height: 1.45;
+      line-height: 1.5;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
-    .footer-space { height: 12px; }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 860px) {
-      .summary-grid,
-      .hero-metrics { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 860px) {
-      .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .summary-grid,
-      .hero-metrics { grid-template-columns: 1fr; }
-      .page { padding: 12px 12px 28px; }
-      .hero,
-      .panel,
-      .topbar { border-radius: 22px; }
-    }
-
-    .ai-fab {
-      position: fixed;
-      right: 20px;
-      bottom: 22px;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      border: none;
-      background: linear-gradient(135deg, var(--accent), #14b8a6);
-      box-shadow: 0 16px 28px rgba(15, 118, 110, 0.32);
-      color: #fff;
-      font-size: 22px;
-      z-index: 50;
-    }
-
-    .ai-widget {
-      position: fixed;
-      right: 20px;
-      bottom: 90px;
-      width: min(380px, calc(100vw - 40px));
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(16, 24, 40, 0.08);
-      box-shadow: 0 24px 60px rgba(16, 24, 40, 0.18);
-      z-index: 50;
-      overflow: hidden;
-      display: none;
-    }
-
-    .ai-widget.open { display: block; }
-
-    .ai-widget-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      background: linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(234, 88, 12, 0.08));
-      border-bottom: 1px solid rgba(16, 24, 40, 0.06);
-    }
-
-    .ai-widget-header strong {
-      display: block;
-      font-size: 14px;
-    }
-
-    .ai-widget-header span {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .ai-widget-body {
-      display: grid;
-      gap: 12px;
-      padding: 14px 16px 16px;
-    }
-
-    .ai-widget .conversation {
-      max-height: 250px;
-      overflow: auto;
-    }
-
-    .ai-widget .inline-actions {
-      justify-content: space-between;
-    }
-
-    .ai-widget .shortcut-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .ai-widget .shortcut {
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(16, 24, 40, 0.08);
-      background: white;
-      font-size: 12px;
-    }
-
-    .ai-widget .response {
-      padding: 12px;
-      border-radius: 16px;
+    .response,
+    .ai-summary {
+      padding: 14px;
+      border-radius: 18px;
       background: rgba(15, 118, 110, 0.06);
       border: 1px solid rgba(15, 118, 110, 0.12);
-      color: var(--ink);
-      font-size: 13px;
-      line-height: 1.55;
       white-space: pre-wrap;
       word-break: break-word;
+      line-height: 1.55;
+      font-size: 13px;
     }
-
-    .detail-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 60;
-      padding: 18px;
-    }
-
-    .detail-modal-backdrop.open { display: flex; }
-
-    .detail-modal {
-      width: min(860px, 100%);
-      max-height: min(90vh, 900px);
-      overflow: auto;
-      border-radius: 28px;
-      background: #fff;
-      box-shadow: 0 40px 100px rgba(15, 23, 42, 0.35);
-      border: 1px solid rgba(16, 24, 40, 0.08);
-    }
-
-    .detail-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 16px;
-      padding: 18px;
-      border-bottom: 1px solid rgba(16, 24, 40, 0.08);
-      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(234, 88, 12, 0.06));
-    }
-
-    .detail-modal-body { padding: 18px; }
 
     .detail-layout {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
       gap: 18px;
     }
 
-    .detail-media {
-      min-height: 280px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(15, 118, 110, 0.96), rgba(234, 88, 12, 0.92));
-      color: #fff;
-      padding: 20px;
-      display: grid;
-      align-content: end;
-      gap: 12px;
-    }
-
-    .detail-media h3 {
-      margin: 0;
-      font-size: 28px;
-      letter-spacing: -0.03em;
-    }
-
-    .detail-media .small {
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .detail-panel {
+    .detail-copy {
       display: grid;
       gap: 14px;
       align-content: start;
     }
 
     .detail-row {
-      padding: 12px 14px;
+      padding: 14px;
       border-radius: 18px;
-      border: 1px solid rgba(16, 24, 40, 0.08);
       background: #fff;
+      border: 1px solid rgba(15, 23, 42, 0.08);
     }
 
     .detail-row strong {
@@ -948,18 +681,154 @@
     .detail-row span {
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .hero-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .small-note {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .order-card {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      cursor: pointer;
+      transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .order-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(15, 118, 110, 0.22);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .order-card.selected {
+      border-color: rgba(15, 118, 110, 0.3);
+      background: rgba(15, 118, 110, 0.04);
+    }
+
+    .order-items {
+      display: grid;
+      gap: 10px;
+    }
+
+    .order-item-chip {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(15, 118, 110, 0.06);
+      border: 1px solid rgba(15, 118, 110, 0.12);
+      font-size: 13px;
       line-height: 1.5;
     }
 
-    .detail-actions {
+    #aiResponse {
       display: flex;
+      flex-direction: column;
       gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
     }
 
-    @media (max-width: 900px) {
-      .detail-layout { grid-template-columns: 1fr; }
+    .ai-answer {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .ai-product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ai-product-card {
+      display: block;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    .ai-product-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(99,102,241,0.4);
+      background: rgba(99,102,241,0.08);
+    }
+
+    .ai-product-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .ai-product-meta {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .ai-product-action {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #8ab4ff;
+      font-weight: 500;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1100px) {
+      .layout.login,
+      .layout.catalog,
+      .layout.cart,
+      .layout.ai,
+      .layout.detail,
+      .hero-grid,
+      .detail-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3,
+      .summary-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .app-shell { width: calc(100vw - 18px); }
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .topbar-actions { justify-content: flex-start; }
+      .toolbar { align-items: stretch; }
+      .toolbar .group { width: 100%; }
+      .toolbar select { width: 100%; }
+      .nav { width: 100%; }
+      .nav button { flex: 1 1 0; }
     }
   </style>
 </head>
@@ -970,15 +839,17 @@
         <div class="brand-mark">NM</div>
         <div class="brand-copy">
           <h1>Nova Market</h1>
-          <p>Trải nghiệm mua sắm online với catalog, cart chọn item và checkout liền mạch.</p>
+          <p>Login, browse, xem chi tiết sản phẩm, tạo đơn hàng và chat AI trong một luồng rõ ràng.</p>
         </div>
       </div>
 
       <div class="nav" id="navBar">
         <button data-route="login">Login</button>
         <button data-route="home">Home</button>
+        <button data-route="detail">Detail</button>
         <button data-route="cart">Cart</button>
-        <button data-route="payment">Payment</button>
+        <button data-route="orders">Orders</button>
+        <button data-route="ai">AI</button>
       </div>
 
       <div class="topbar-actions">
@@ -989,428 +860,561 @@
     </header>
 
     <main>
-      <section class="view page-box active" id="loginPage" data-route="login">
+      <section class="page active" id="loginPage" data-route="login">
         <div class="hero">
           <div class="hero-grid">
             <div>
-              <h2>Welcome back to Nova Market.</h2>
-              <p>Đăng nhập để khám phá catalog, thêm sản phẩm vào giỏ, chọn item muốn checkout và theo dõi thanh toán ngay trên cùng một luồng.</p>
+              <div class="chip-row" style="margin-bottom: 12px;">
+                <span class="chip active">user-service</span>
+                <span class="chip active">product-service</span>
+                <span class="chip active">cart + order</span>
+                <span class="chip active">ai-service</span>
+              </div>
+              <h2>Secure login, then browse the full storefront.</h2>
+              <p>Trang login tách riêng để xác thực người dùng trước. Sau đó bạn có thể duyệt catalog, mở chi tiết sản phẩm, thêm vào giỏ, tạo đơn hàng và nhận gợi ý từ AI trên cùng một giao diện.</p>
+
+              <div class="hero-list">
+                <div class="hero-item">1. Login/Register bằng user-service.</div>
+                <div class="hero-item">2. Home hiển thị product-service với search, sort và phân trang.</div>
+                <div class="hero-item">3. Detail cho phép xem thông tin đầy đủ và add to cart.</div>
+                <div class="hero-item">4. Cart tạo order từ các item đã chọn.</div>
+                <div class="hero-item">5. AI chat/recommend được đặt thành một màn hình riêng.</div>
+              </div>
             </div>
-            <div class="hero-metrics">
-              <div class="metric"><strong>Login</strong><span>Step 1</span></div>
-              <div class="metric"><strong>Browse</strong><span>Step 2</span></div>
-              <div class="metric"><strong>Checkout</strong><span>Step 3-4</span></div>
-            </div>
-            <div class="chip-row">
-              <span class="chip active">Secure auth</span>
-              <span class="chip active">Gateway API</span>
-              <span class="chip active">AI helper</span>
+
+            <div class="hero-side">
+              <div class="hero-stat"><strong>5 screens</strong><span>Luồng giao diện tách bạch theo đúng nghiệp vụ</span></div>
+              <div class="hero-stat"><strong>Gateway first</strong><span>Tất cả request đi qua api-gateway</span></div>
+              <div class="hero-stat"><strong>Responsive</strong><span>Desktop và mobile đều dùng ổn</span></div>
             </div>
           </div>
         </div>
 
-        <div class="shell home-shell" style="margin-top: 16px;">
+        <div class="layout login" style="margin-top: 18px;">
           <section class="panel">
             <div class="panel-header">
               <div class="section-title">
-                <h3>Tài khoản</h3>
-                <span>Login / Register</span>
+                <h3>Đăng nhập</h3>
+                <span>user-service</span>
               </div>
-              <p class="panel-subtitle">Đăng nhập để mở Home. Sau đó bạn có thể duyệt sản phẩm, chat AI, vào Cart để tạo đơn và đi đến Payment.</p>
             </div>
-            <div class="panel-body">
-              <div class="fields">
-                <div class="field-row">
-                  <label>Username</label>
-                  <input id="username" placeholder="customer_user">
-                </div>
-                <div class="field-row">
-                  <label>Password</label>
-                  <input id="password" type="password" placeholder="customer123">
-                </div>
-                <div class="field-row">
-                  <label>Role khi register</label>
-                  <select id="role">
-                    <option value="customer">customer</option>
-                    <option value="staff">staff</option>
-                    <option value="admin">admin</option>
-                  </select>
-                </div>
+
+            <div class="fields">
+              <div class="field-row">
+                <label for="username">Username</label>
+                <input id="username" placeholder="customer_user">
               </div>
 
-              <div class="inline-actions" style="margin-top: 14px;">
-                <button class="btn-primary" id="btnLogin">Login</button>
-                <button class="btn-secondary" id="btnRegister">Register</button>
+              <div class="field-row">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="customer123">
               </div>
 
-              <div class="info-banner">Gợi ý nhanh: <strong>customer_user / customer123</strong></div>
-              <div class="status" id="authStatus"></div>
+              <div class="field-row">
+                <label for="role">Role khi register</label>
+                <select id="role">
+                  <option value="customer">customer</option>
+                  <option value="staff">staff</option>
+                  <option value="admin">admin</option>
+                </select>
+              </div>
             </div>
+
+            <div class="inline-actions" style="margin-top: 16px;">
+              <button class="btn-primary" id="btnLogin">Login</button>
+              <button class="btn-secondary" id="btnRegister">Register</button>
+            </div>
+
+            <div class="info-banner" style="margin-top: 14px;">Tài khoản demo: <strong>customer_user / customer123</strong></div>
+            <div class="status" id="authStatus"></div>
           </section>
 
-          <aside class="stack">
-            <div class="panel">
-              <div class="panel-header">
-                <div class="section-title">
-                  <h3>Why this flow</h3>
-                  <span>UI goals</span>
-                </div>
-                <p class="panel-subtitle">Trang login tách riêng, sau đó mới vào các màn hình mua hàng đúng kiểu e-commerce.</p>
+          <aside class="panel">
+            <div class="panel-header">
+              <div class="section-title">
+                <h3>Luồng sử dụng</h3>
+                <span>Storefront</span>
               </div>
-              <div class="panel-body">
-                <div class="feature-list">
-                  <div class="feature-item">1. Login page riêng để xác thực người dùng trước khi vào shop.</div>
-                  <div class="feature-item">2. Home page có tìm kiếm, phân trang và chọn sản phẩm rõ ràng.</div>
-                  <div class="feature-item">3. Cart page dùng để xem giỏ và tạo order, sau đó chuyển sang payment.</div>
-                  <div class="feature-item">4. AI chat nằm ở Home, bật/tắt bằng nút tròn nổi ở góc phải.</div>
-                </div>
-              </div>
+            </div>
+            <div class="fields">
+              <div class="detail-tile"><strong>Login</strong><span>Đăng nhập để mở các màn Home, Detail, Cart và AI.</span></div>
+              <div class="detail-tile"><strong>Browse</strong><span>Home có product catalog, filter, sort và phân trang.</span></div>
+              <div class="detail-tile"><strong>Checkout</strong><span>Cart cho phép chọn item để tạo đơn hàng ngay từ giỏ.</span></div>
             </div>
           </aside>
         </div>
       </section>
 
-      <section class="view page-box" id="homePage" data-route="home">
-        <div class="hero-card">
-          <div class="panel-header">
-            <div class="section-title">
-              <h3>Home</h3>
-              <span>Product discovery</span>
+      <section class="page" id="homePage" data-route="home">
+        <div class="hero">
+          <div class="hero-grid">
+            <div>
+              <div class="chip-row" style="margin-bottom: 12px;">
+                <span class="chip active">Product discovery</span>
+                <span class="chip active">Search</span>
+                <span class="chip active">Pagination</span>
+                <span class="chip active">Sort</span>
+              </div>
+              <h2>Browse the catalog at full width.</h2>
+              <p>Home được thiết kế để ưu tiên sản phẩm: một khung catalog lớn, lưới card rộng, tìm kiếm theo tên/danh mục/mô tả và chuyển sang trang chi tiết chỉ với một lần click.</p>
             </div>
-            <p class="panel-subtitle">Tìm kiếm, phân trang, chọn số lượng và thêm sản phẩm vào giỏ. AI chat nằm nổi ở góc phải màn hình.</p>
-          </div>
-          <div class="panel-body">
-            <div class="summary-grid">
-              <div class="summary-card"><strong id="homeProductCount">0</strong><span>Sản phẩm đã tải</span></div>
-              <div class="summary-card"><strong id="homeCartCount">0</strong><span>Sản phẩm trong giỏ</span></div>
-              <div class="summary-card"><strong id="homeUserLabel">Guest</strong><span>Tài khoản hiện tại</span></div>
+            <div class="hero-side">
+              <div class="hero-stat"><strong id="homeProductCount">0</strong><span>Sản phẩm đã tải</span></div>
+              <div class="hero-stat"><strong id="homeCartCount">0</strong><span>Sản phẩm trong giỏ</span></div>
+              <div class="hero-stat"><strong id="homeUserLabel">Guest</strong><span>Tài khoản hiện tại</span></div>
             </div>
           </div>
         </div>
 
-        <div class="shell" style="margin-top: 16px;">
-          <section class="stack">
-            <div class="panel">
-              <div class="panel-header">
-                <div class="section-title">
-                  <h3>Product catalog</h3>
-                  <span>Search + pagination</span>
-                </div>
-                <p class="panel-subtitle">Lấy toàn bộ sản phẩm từ gateway, sau đó lọc và phân trang ở client để trải nghiệm như shop thật.</p>
+        <div class="layout catalog" style="margin-top: 18px;">
+          <section class="panel">
+            <div class="panel-header">
+              <div class="section-title">
+                <h3>Product catalog</h3>
+                <span>product-service</span>
               </div>
-              <div class="panel-body">
-                <div class="search-bar">
-                  <input id="productSearch" placeholder="Tìm theo tên, danh mục, mô tả...">
-                  <button class="btn-secondary" id="btnReloadProducts">Tải lại</button>
-                </div>
-                <div class="catalog-toolbar">
-                  <select id="sortProducts">
-                    <option value="featured">Sắp xếp: Nổi bật</option>
-                    <option value="priceAsc">Giá tăng dần</option>
-                    <option value="priceDesc">Giá giảm dần</option>
-                    <option value="nameAsc">Tên A-Z</option>
-                  </select>
-                  <select id="pageSizeSelect">
-                    <option value="8">8 sản phẩm/trang</option>
-                    <option value="12">12 sản phẩm/trang</option>
-                    <option value="16">16 sản phẩm/trang</option>
-                  </select>
-                </div>
-                <div class="pagination">
-                  <div class="pagination-info" id="paginationInfo">Page 1</div>
-                  <div class="inline-actions">
-                    <button class="btn-ghost" id="btnPrevPage">Prev</button>
-                    <button class="btn-ghost" id="btnNextPage">Next</button>
-                  </div>
-                </div>
-                <div class="page-numbers" id="pageNumbers"></div>
-                <div class="product-grid" id="productsBox">
-                  <div class="empty-state">Nhấn "Tải lại" để bắt đầu.</div>
-                </div>
+              <div class="small-note">Click vào card để mở trang chi tiết sản phẩm.</div>
+            </div>
+
+            <div class="search-bar">
+              <input id="productSearch" placeholder="Tìm theo tên, danh mục, mô tả...">
+              <button class="btn-secondary" id="btnReloadProducts">Tải lại</button>
+            </div>
+
+            <div class="toolbar">
+              <div class="group">
+                <select id="sortProducts">
+                  <option value="featured">Sắp xếp: Nổi bật</option>
+                  <option value="priceAsc">Giá tăng dần</option>
+                  <option value="priceDesc">Giá giảm dần</option>
+                  <option value="nameAsc">Tên A-Z</option>
+                </select>
+                <select id="pageSizeSelect">
+                  <option value="8">8 sản phẩm/trang</option>
+                  <option value="12" selected>12 sản phẩm/trang</option>
+                  <option value="16">16 sản phẩm/trang</option>
+                </select>
               </div>
+              <div class="group">
+                <button class="btn-ghost" id="btnPrevPage">Prev</button>
+                <button class="btn-ghost" id="btnNextPage">Next</button>
+              </div>
+            </div>
+
+            <div class="pagination">
+              <div class="pagination-info" id="paginationInfo">Page 1</div>
+              <div class="pagination-info" id="catalogCountLabel">0 items</div>
+            </div>
+
+            <div class="page-numbers" id="pageNumbers"></div>
+            <div class="catalog-grid" id="productsGrid">
+              <div class="empty-state">Bấm <strong>Tải lại</strong> để nạp danh sách sản phẩm.</div>
             </div>
           </section>
         </div>
       </section>
 
-      <section class="view page-box" id="cartPage" data-route="cart">
-        <div class="hero-card">
-          <div class="panel-header">
-            <div class="section-title">
-              <h3>Cart</h3>
-              <span>Review before checkout</span>
+      <section class="page" id="detailPage" data-route="detail">
+        <div class="hero">
+          <div class="hero-grid">
+            <div>
+              <div class="chip-row" style="margin-bottom: 12px;">
+                <span class="chip active">Product detail</span>
+                <span class="chip active">Add to cart</span>
+                <span class="chip active">product-service</span>
+                <span class="chip active">cart-service</span>
+              </div>
+              <h2>See the product clearly before adding it to cart.</h2>
+              <p>Trang chi tiết cho phép xem đủ metadata theo category, xác nhận giá, stock và chọn số lượng trước khi thêm vào giỏ hàng.</p>
             </div>
-            <p class="panel-subtitle">Trang cart là nơi bạn kiểm tra sản phẩm đã chọn, tạo đơn hàng, rồi chuyển sang payment.</p>
-          </div>
-          <div class="panel-body">
-            <div class="summary-grid">
-              <div class="summary-card"><strong id="cartSummaryCount">0</strong><span>Items trong cart</span></div>
-              <div class="summary-card"><strong id="cartSummaryOrder">No order</strong><span>Order hiện tại</span></div>
-              <div class="summary-card"><strong id="cartSummaryUser">Guest</strong><span>User hiện tại</span></div>
+            <div class="hero-side">
+              <div class="hero-stat"><strong id="detailHeroName">No product selected</strong><span id="detailHeroCategory">Choose one from Home</span></div>
+              <div class="hero-stat"><strong id="detailHeroPrice">--</strong><span id="detailHeroStock">Stock --</span></div>
             </div>
           </div>
         </div>
 
-        <div class="shell" style="margin-top: 16px;">
+        <div class="layout detail" style="margin-top: 18px;">
+          <section class="panel">
+            <div class="detail-layout">
+              <div class="detail-cover">
+                <div>
+                  <span class="badge">Product detail</span>
+                  <h3 id="detailName">Chưa có sản phẩm nào được chọn</h3>
+                </div>
+                <div class="mini-meta" id="detailMiniMeta">Mở từ trang Home để xem chi tiết</div>
+              </div>
+
+              <div class="detail-copy">
+                <div class="detail-row"><strong>Thông tin chung</strong><span id="detailGeneral">--</span></div>
+                <div class="detail-row"><strong>Chi tiết theo category</strong><span id="detailSpecific">--</span></div>
+                <div class="detail-row">
+                  <strong>Số lượng</strong>
+                  <div class="detail-actions" style="margin-top: 8px;">
+                    <input id="detailQuantity" type="number" min="1" value="1" style="max-width: 140px;">
+                    <button class="btn-primary" id="btnAddFromDetail">Add to cart</button>
+                    <button class="btn-ghost" id="btnBackHomeFromDetail">Back to home</button>
+                  </div>
+                </div>
+                <div class="detail-row"><strong>Mô tả</strong><span id="detailDesc">--</span></div>
+              </div>
+            </div>
+          </section>
+
+          <aside class="panel">
+            <div class="panel-header">
+              <div class="section-title">
+                <h3>Actions</h3>
+                <span>Quick state</span>
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="status-tile"><strong id="detailPrice">--</strong><span>Giá sản phẩm</span></div>
+              <div class="status-tile"><strong id="detailStock">--</strong><span>Số lượng tồn</span></div>
+              <div class="status-tile"><strong id="detailCategory">--</strong><span>Danh mục</span></div>
+            </div>
+
+            <div class="info-banner" style="margin-top: 12px;">Sau khi add to cart, bạn sẽ được đưa sang Cart để chọn item và tạo đơn hàng.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page" id="cartPage" data-route="cart">
+        <div class="hero">
+          <div class="hero-grid">
+            <div>
+              <div class="chip-row" style="margin-bottom: 12px;">
+                <span class="chip active">cart-service</span>
+                <span class="chip active">order-service</span>
+                <span class="chip active">Selected items</span>
+                <span class="chip active">Create order</span>
+              </div>
+              <h2>Review your cart and create an order from selected items.</h2>
+              <p>Cart page hiển thị từng item, cho phép chọn item cần checkout, xoá item nếu cần và tạo đơn hàng từ những phần đã chọn. Order mới nhất sẽ được hiển thị ngay bên cạnh.</p>
+            </div>
+            <div class="hero-side">
+              <div class="hero-stat"><strong id="cartHeroCount">0</strong><span>Items trong cart</span></div>
+              <div class="hero-stat"><strong id="cartHeroOrder">No order</strong><span>Đơn hàng hiện tại</span></div>
+              <div class="hero-stat"><strong id="cartHeroUser">Guest</strong><span>User hiện tại</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout cart" style="margin-top: 18px;">
           <section class="panel">
             <div class="panel-header">
               <div class="section-title">
                 <h3>Your cart</h3>
-                <span>Cart service</span>
+                <span>cart-service</span>
               </div>
-              <p class="panel-subtitle">Lấy dữ liệu cart từ gateway, chọn đúng item cần checkout, xóa item nếu cần rồi tạo order.</p>
+              <div class="small-note">Tick checkbox để chọn item cho đơn hàng.</div>
             </div>
-            <div class="panel-body">
-              <div class="inline-actions">
-                <button class="btn-secondary" id="btnLoadCart">Refresh cart</button>
-                <button class="btn-ghost" id="btnGoHomeFromCart">Back to home</button>
-              </div>
-              <div class="cart-toolbar">
-                <div class="cart-summary" id="cartSelectionSummary">Đã chọn 0 item • Tạm tính 0 đ</div>
-                <div class="inline-actions">
-                  <button class="btn-ghost" id="btnSelectAllCart">Chọn tất cả</button>
-                  <button class="btn-ghost" id="btnClearCartSelection">Bỏ chọn</button>
-                </div>
-              </div>
-              <div class="list-box" id="cartBox"><div class="empty-state">Chưa có cart.</div></div>
+
+            <div class="inline-actions">
+              <button class="btn-secondary" id="btnLoadCart">Refresh cart</button>
+              <button class="btn-ghost" id="btnSelectAllCart">Select all</button>
+              <button class="btn-ghost" id="btnClearCartSelection">Clear</button>
+              <button class="btn-ghost" id="btnBackHomeFromCart">Back to home</button>
             </div>
+
+            <div style="margin-top: 12px;" class="fields">
+              <div class="field-row">
+                <label for="cartAddress">Địa chỉ giao hàng</label>
+                <textarea id="cartAddress" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành..."></textarea>
+              </div>
+            </div>
+
+            <div class="info-banner" style="margin-top: 12px;" id="cartSelectionSummary">Đã chọn 0 item • Tạm tính 0 ₫</div>
+            <div class="list-box" id="cartBox" style="margin-top: 12px;"><div class="empty-state">Giỏ hàng trống.</div></div>
           </section>
 
-          <aside class="stack">
-            <div class="panel">
-              <div class="panel-header">
-                <div class="section-title">
-                  <h3>Create order</h3>
-                  <span>Checkout step 1</span>
-                </div>
-                <p class="panel-subtitle">Tạo đơn từ cart, sau đó chuyển sang Payment page để thanh toán.</p>
-              </div>
-              <div class="panel-body">
-                <div class="fields">
-                  <div class="field-row">
-                    <label>Địa chỉ giao hàng</label>
-                    <textarea id="address" placeholder="123 Tran Hung Dao, Ha Noi"></textarea>
-                  </div>
-                  <div class="cart-summary" id="createOrderSummary">Hãy tick ít nhất 1 cart item trước khi tạo order.</div>
-                  <div class="field-row">
-                    <label>Order ID</label>
-                    <input id="orderId" placeholder="Auto after create order" readonly>
-                  </div>
-                </div>
-                <div class="inline-actions" style="margin-top: 12px;">
-                  <button class="btn-primary" id="btnCreateOrder">Create order</button>
-                  <button class="btn-secondary" id="btnGoPaymentFromCart">Go payment</button>
-                </div>
-                <div class="info-banner" id="cartHint">Sau khi tạo đơn xong, chuyển sang Payment để thanh toán và xem shipping.</div>
+          <aside class="panel">
+            <div class="panel-header">
+              <div class="section-title">
+                <h3>Order summary</h3>
+                <span>order-service</span>
               </div>
             </div>
 
-            <div class="panel">
-              <div class="panel-header">
-                <div class="section-title">
-                  <h3>Order preview</h3>
-                  <span>Recent</span>
-                </div>
-              </div>
-              <div class="panel-body">
-                <div class="list-box" id="ordersPreview"><div class="empty-state">Chưa có order.</div></div>
-              </div>
+            <div class="fields">
+              <div class="status-tile"><strong id="lastOrderId">No order</strong><span>Order gần nhất</span></div>
+              <div class="status-tile"><strong id="paymentStatus">Pending</strong><span>Payment status</span></div>
+              <div class="status-tile"><strong id="shippingStatus">Pending</strong><span>Shipping status</span></div>
             </div>
+
+            <div class="inline-actions" style="margin-top: 12px;">
+              <button class="btn-primary" id="btnCreateOrder">Create order</button>
+              <button class="btn-secondary" id="btnCheckPayment">Payment</button>
+              <button class="btn-secondary" id="btnCheckShipping">Shipping</button>
+            </div>
+
+            <div class="list-box" id="ordersBox" style="margin-top: 12px;"><div class="empty-state">Chưa có order.</div></div>
           </aside>
         </div>
       </section>
 
-      <section class="view page-box" id="paymentPage" data-route="payment">
-        <div class="hero-card">
-          <div class="panel-header">
-            <div class="section-title">
-              <h3>Payment</h3>
-              <span>Pay and track shipping</span>
+      <section class="page" id="ordersPage" data-route="orders">
+        <div class="hero">
+          <div class="hero-grid">
+            <div>
+              <div class="chip-row" style="margin-bottom: 12px;">
+                <span class="chip active">order-service</span>
+                <span class="chip active">Order list</span>
+                <span class="chip active">Order detail</span>
+                <span class="chip active">Created from cart</span>
+              </div>
+              <h2>Track your orders in one dedicated page.</h2>
+              <p>Trang Orders hiển thị danh sách đơn hàng mới nhất và phần chi tiết đơn đang chọn. Vì order-service hiện chỉ có API list/create-from-cart, chi tiết được mở ngay từ dữ liệu đã tải về.</p>
             </div>
-            <p class="panel-subtitle">Chọn thanh toán cho order đã tạo, kiểm tra payment status và shipping status trên cùng một page.</p>
-          </div>
-          <div class="panel-body">
-            <div class="summary-grid">
-              <div class="summary-card"><strong id="paymentSummaryOrder">No order</strong><span>Order hiện tại</span></div>
-              <div class="summary-card"><strong id="paymentSummaryStatus">Pending</strong><span>Payment status</span></div>
-              <div class="summary-card"><strong id="paymentSummaryShip">Pending</strong><span>Shipping status</span></div>
+            <div class="hero-side">
+              <div class="hero-stat"><strong id="ordersHeroCount">0</strong><span>Đơn hàng đã tải</span></div>
+              <div class="hero-stat"><strong id="ordersHeroSelected">No order</strong><span>Order đang xem</span></div>
+              <div class="hero-stat"><strong id="ordersHeroStatus">Pending</strong><span>Trạng thái hiện tại</span></div>
             </div>
           </div>
         </div>
 
-        <div class="shell" style="margin-top: 16px;">
+        <div class="layout orders" style="margin-top: 18px;">
           <section class="panel">
             <div class="panel-header">
               <div class="section-title">
-                <h3>Payment action</h3>
-                <span>Checkout step 2</span>
+                <h3>Order list</h3>
+                <span>order-service</span>
               </div>
-              <p class="panel-subtitle">Nhập order và amount để thanh toán, sau đó kiểm tra status của payment và shipping.</p>
+              <div class="small-note">Chọn một order để xem chi tiết ở panel bên phải.</div>
             </div>
-            <div class="panel-body">
-              <div class="fields">
-                <div class="split-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                  <div class="field-row">
-                    <label>Order ID</label>
-                    <input id="paymentOrderId" placeholder="Order ID from cart page">
-                  </div>
-                  <div class="field-row">
-                    <label>Amount</label>
-                    <input id="amount" type="number" step="0.01" value="100">
-                  </div>
-                </div>
-              </div>
-              <div class="inline-actions" style="margin-top: 12px;">
-                <button class="btn-primary" id="btnManualPay">Pay now</button>
-                <button class="btn-secondary" id="btnPaymentStatus">Payment status</button>
-                <button class="btn-secondary" id="btnShippingStatus">Shipping status</button>
-              </div>
-              <div class="inline-actions" style="margin-top: 12px;">
-                <button class="btn-ghost" id="btnGoHomeFromPayment">Back to home</button>
-                <button class="btn-ghost" id="btnGoCartFromPayment">Back to cart</button>
-              </div>
+
+            <div class="search-bar">
+              <input id="orderSearch" placeholder="Tìm theo order id, user id, status...">
+              <button class="btn-secondary" id="btnReloadOrders">Refresh orders</button>
+            </div>
+
+            <div class="inline-actions" style="margin-top: 12px;">
+              <button class="btn-ghost" id="btnGoCartFromOrders">Back to cart</button>
+              <button class="btn-ghost" id="btnGoHomeFromOrders">Back to home</button>
+            </div>
+
+            <div class="page-numbers" id="orderFilterChips" style="margin-top: 12px;">
+              <button class="page-btn active" data-order-filter="all">All</button>
+              <button class="page-btn" data-order-filter="pending">Pending</button>
+              <button class="page-btn" data-order-filter="paid">Paid</button>
+              <button class="page-btn" data-order-filter="shipping">Shipping</button>
+              <button class="page-btn" data-order-filter="failed">Failed</button>
+            </div>
+
+            <div class="list-box" id="ordersListBox">
+              <div class="empty-state">Chưa có order.</div>
             </div>
           </section>
 
-          <aside class="stack">
-            <div class="panel">
-              <div class="panel-header">
-                <div class="section-title">
-                  <h3>Payment result</h3>
-                  <span>Service output</span>
-                </div>
-              </div>
-              <div class="panel-body">
-                <div class="list-box" id="paymentBox"><div class="empty-state">Chưa có payment.</div></div>
+          <aside class="panel">
+            <div class="panel-header">
+              <div class="section-title">
+                <h3>Order detail</h3>
+                <span>Selected order</span>
               </div>
             </div>
 
-            <div class="panel">
-              <div class="panel-header">
-                <div class="section-title">
-                  <h3>Shipping result</h3>
-                  <span>Service output</span>
-                </div>
-              </div>
-              <div class="panel-body">
-                <div class="list-box" id="shippingBox"><div class="empty-state">Chưa có shipment.</div></div>
+            <div class="fields">
+              <div class="status-tile"><strong id="orderDetailId">No order</strong><span>Order ID</span></div>
+              <div class="status-tile"><strong id="orderDetailUser">--</strong><span>User ID</span></div>
+              <div class="status-tile"><strong id="orderDetailStatus">Pending</strong><span>Status</span></div>
+              <div class="status-tile"><strong id="orderDetailTotal">--</strong><span>Total price</span></div>
+            </div>
+
+            <div class="detail-row" style="margin-top: 12px;">
+              <strong>Items</strong>
+              <div class="order-items" id="orderDetailItems" style="margin-top: 10px;">
+                <div class="empty-state">Chọn một order từ danh sách để xem items.</div>
               </div>
             </div>
+
+            <div class="info-banner" style="margin-top: 12px;">Chi tiết order được dựng từ payload list hiện có vì order-service chưa expose endpoint detail riêng.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page" id="aiPage" data-route="ai">
+        <div class="hero">
+          <div class="hero-grid">
+            <div>
+              <div class="chip-row" style="margin-bottom: 12px;">
+                <span class="chip active">ai-service</span>
+                <span class="chip active">Chatbot</span>
+                <span class="chip active">Recommend</span>
+                <span class="chip active">Behavior summary</span>
+              </div>
+              <h2>Ask Nova AI for recommendations or shopping help.</h2>
+              <p>AI page là nơi hỏi đáp nhanh, lấy gợi ý sản phẩm theo hành vi và xem phản hồi được làm sạch theo kiểu bullet ngắn gọn để dễ đọc.</p>
+            </div>
+            <div class="hero-side">
+              <div class="hero-stat"><strong>Chat</strong><span>Nhập câu hỏi về nhu cầu mua sắm</span></div>
+              <div class="hero-stat"><strong>Recommend</strong><span>Xin gợi ý theo user_id và query</span></div>
+              <div class="hero-stat"><strong>Summary</strong><span>Hiển thị tóm tắt từ ai-service</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout ai" style="margin-top: 18px;">
+          <section class="panel">
+            <div class="panel-header">
+              <div class="section-title">
+                <h3>AI chat</h3>
+                <span>chatbot + recommend</span>
+              </div>
+              <div class="small-note">Các nút mẫu sẽ đổ sẵn prompt để bạn hỏi nhanh hơn.</div>
+            </div>
+
+            <div class="ai-preset-row">
+              <button class="shortcut" data-ai-preset="Gợi ý laptop gaming giá tốt">Laptop gaming</button>
+              <button class="shortcut" data-ai-preset="Tôi muốn mua quà tặng cho bạn nữ">Quà tặng</button>
+              <button class="shortcut" data-ai-preset="Đề xuất sản phẩm theo lịch sử mua hàng của tôi">Recommend</button>
+              <button class="shortcut" data-ai-preset="Tôi muốn sản phẩm bền, đẹp, giá hợp lý">Tổng hợp</button>
+            </div>
+
+            <div class="fields" style="margin-top: 12px;">
+              <div class="field-row">
+                <label for="aiQuery">AI query</label>
+                <textarea id="aiQuery" placeholder="Ví dụ: laptop gaming dưới 25 triệu, màn hình đẹp, pin ổn"></textarea>
+              </div>
+            </div>
+
+            <div class="inline-actions" style="margin-top: 12px;">
+              <button class="btn-primary" id="btnAIChat">Chat AI</button>
+              <button class="btn-secondary" id="btnAIRecommend">Gợi ý sản phẩm</button>
+              <button class="btn-ghost" id="btnAISummary">Xem summary</button>
+              <button class="btn-ghost" id="btnAIDebugToggle" title="Toggle raw AI payload">Raw</button>
+            </div>
+
+            <div class="response" id="aiResponse" style="margin-top: 12px;">Chưa có phản hồi AI.</div>
+            <div class="conversation" id="aiConversation" style="margin-top: 12px;"></div>
+            <div id="aiDebugPanel" style="margin-top:12px; display:none;">
+              <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Raw AI payload (for debugging)</div>
+              <pre id="aiDebug" style="background:#0f172a;color:#e6eef6;padding:12px;border-radius:8px;max-height:240px;overflow:auto;font-size:12px;white-space:pre-wrap;"></pre>
+            </div>
+          </section>
+
+          <aside class="panel">
+            <div class="panel-header">
+              <div class="section-title">
+                <h3>AI summary</h3>
+                <span>behavior insights</span>
+              </div>
+            </div>
+            <div class="ai-summary" id="aiSummary">Chưa tải summary.</div>
+            <div class="info-banner" style="margin-top: 12px;">Nếu AI service trả về lỗi, giao diện vẫn giữ trạng thái chat và hiển thị lỗi ngắn gọn để bạn biết endpoint nào đang gặp vấn đề.</div>
           </aside>
         </div>
       </section>
     </main>
 
-    <div class="footer-space"></div>
-  </div>
-
-  <button class="ai-fab" id="aiFab" aria-label="Open AI chat">AI</button>
-  <aside class="ai-widget" id="aiWidget" aria-hidden="true">
-    <div class="ai-widget-header">
-      <div>
-        <strong>Nova AI</strong>
-        <span>Tư vấn sản phẩm và hỗ trợ mua sắm</span>
-      </div>
-      <button class="btn-ghost" id="closeAiWidget" style="padding:8px 10px;border-radius:999px;">Close</button>
-    </div>
-    <div class="ai-widget-body">
-      <div class="shortcut-row">
-        <button class="shortcut" data-ai-preset="Gợi ý laptop gaming giá tốt">Laptop gaming</button>
-        <button class="shortcut" data-ai-preset="Tôi muốn sản phẩm làm quà tặng">Quà tặng</button>
-        <button class="shortcut" data-ai-preset="Gợi ý theo lịch sử mua hàng của tôi">Recommend</button>
-      </div>
-      <div class="conversation" id="miniChat"></div>
-      <div class="field-row">
-        <label>AI query</label>
-        <textarea id="aiQuery" placeholder="Ví dụ: laptop gaming giá rẻ, màn hình đẹp, pin tốt"></textarea>
-      </div>
-      <div class="inline-actions">
-        <button class="btn-primary" id="btnAIChatbot">Chat AI</button>
-        <button class="btn-secondary" id="btnAIRecommend">Gợi ý sản phẩm</button>
-      </div>
-      <div class="response" id="aiResponse">Chưa có phản hồi AI.</div>
-    </div>
-  </aside>
-
-  <div class="detail-modal-backdrop" id="detailBackdrop" aria-hidden="true">
-    <div class="detail-modal">
-      <div class="detail-modal-header">
-        <div>
-          <div class="section-title"><h3 id="detailTitle">Product detail</h3><span id="detailCategory">N/A</span></div>
-          <p class="panel-subtitle" id="detailSubtitle">Chi tiết sản phẩm sẽ hiển thị ở đây.</p>
-        </div>
-        <button class="btn-ghost" id="closeDetail" style="padding:8px 10px;border-radius:999px;">Close</button>
-      </div>
-      <div class="detail-modal-body">
-        <div class="detail-layout">
-          <div class="detail-media">
-            <div>
-              <div class="pill" style="display:inline-flex;background:rgba(255,255,255,0.14);color:#fff;border-color:rgba(255,255,255,0.18);">Product detail</div>
-              <h3 id="detailName">--</h3>
-            </div>
-            <div class="small" id="detailPrice">--</div>
-          </div>
-          <div class="detail-panel">
-            <div class="detail-row"><strong>Thông tin chung</strong><span id="detailGeneral">--</span></div>
-            <div class="detail-row"><strong>Chi tiết theo category</strong><span id="detailSpecific">--</span></div>
-            <div class="detail-row">
-              <strong>Số lượng</strong>
-              <div class="detail-actions" style="margin-top:8px;">
-                <input id="detailQuantity" type="number" min="1" value="1" style="max-width:120px;">
-                <button class="btn-primary" id="btnAddFromDetail">Add to cart</button>
-              </div>
-            </div>
-            <div class="detail-row"><strong>Mô tả</strong><span id="detailDesc">--</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div style="height: 8px;"></div>
   </div>
 
   <script>
     const state = {
       token: "",
       currentUser: null,
+      currentRoute: "login",
       products: [],
       filteredProducts: [],
       selectedProduct: null,
       cart: [],
+      orders: [],
       lastOrder: null,
-      currentRoute: "login",
+      selectedOrder: null,
       search: "",
-      page: 1,
-      pageSize: 8,
       sortBy: "featured",
-      chatMessages: [],
-      aiOpen: false,
-      detailOpen: false,
-      selectedCartProductIds: new Set(),
+      page: 1,
+      pageSize: 12,
+      selectedCartIds: new Set(),
+      orderSearch: "",
+      orderFilter: "all",
+      conversation: [],
+      aiSummary: "",
     };
 
-    const routes = ["login", "home", "cart", "payment"];
-    const viewMap = {
-      login: document.getElementById("loginPage"),
-      home: document.getElementById("homePage"),
-      cart: document.getElementById("cartPage"),
-      payment: document.getElementById("paymentPage"),
-    };
-
-    const aiWidget = document.getElementById("aiWidget");
-    const aiFab = document.getElementById("aiFab");
-    const miniChat = document.getElementById("miniChat");
-    const detailBackdrop = document.getElementById("detailBackdrop");
+    const routes = ["login", "home", "detail", "cart", "orders", "ai"];
+    const viewMap = Object.fromEntries(routes.map((route) => [route, document.getElementById(route + "Page")]));
 
     function formatCurrency(value) {
       const number = Number(value);
-      if (!Number.isFinite(number)) return String(value || "0");
+      if (!Number.isFinite(number)) return "0 ₫";
       return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(number);
     }
 
-    function renderTextContent(value) {
-      if (value === null || value === undefined || value === "") return "--";
-      if (Array.isArray(value)) return value.join(", ");
-      if (typeof value === "object") return Object.entries(value).map(([key, item]) => key + ": " + renderTextContent(item)).join(" • ");
+    function normalizeList(payload) {
+      if (Array.isArray(payload)) return payload;
+      if (payload && Array.isArray(payload.results)) return payload.results;
+      if (payload && Array.isArray(payload.items)) return payload.items;
+      return [];
+    }
+
+    function safeText(value, fallback = "--") {
+      if (value === null || value === undefined || value === "") return fallback;
+      if (Array.isArray(value)) return value.map((item) => safeText(item)).join(", ");
+      if (typeof value === "object") return Object.entries(value).map(([key, item]) => key + ": " + safeText(item)).join(" • ");
       return String(value);
+    }
+
+    function formatAIText(raw) {
+      // Keep a short plain-text fallback for small UI places
+      const source = typeof raw === "string" ? raw : JSON.stringify(raw);
+      const clean = String(source).replace(/Truy van:\s*/i, "").replace(/Intent:\s*[^\n\r]*/i, "").replace(/[{}\[\]"]/g, " ").replace(/\s+/g, " ").trim();
+      if (!clean) return "Nova AI chưa có phản hồi.";
+      const parts = clean.split(/(?:\.\s+|;\s+|\|\s+|\n+)/).map((p) => p.trim()).filter(Boolean).slice(0, 6);
+      return parts.length ? parts.map((p, i) => (i === 0 ? p : "- " + p)).join("\n") : clean;
+    }
+
+    function formatAIHtml(raw) {
+      // Produce friendly HTML: short bullets, remove noisy tokens and link product ids to detail view
+      const source = typeof raw === "string" ? raw : JSON.stringify(raw);
+      let text = String(source).replace(/Truy van:\s*/ig, "").replace(/Intent:\s*[^\n\r]*/ig, "");
+      // normalize whitespace
+      text = text.replace(/[{}\[\]"]/g, " ").replace(/\s+/g, " ").trim();
+      if (!text) return '<div class="ai-line">Nova AI chưa có phản hồi.</div>';
+
+      // find product id patterns like #123 or Product 123 and replace with links
+      const linkified = text.replace(/#(\d+)|Product\s+(?:ID\s*)?#?(\d+)/ig, (m, p1, p2) => {
+        const pid = Number(p1 || p2);
+        const prod = (state.products || []).find((p) => Number(p.id) === pid || Number(p.product_id) === pid);
+        const title = prod ? (prod.name || prod.title || `Product #${pid}`) : `Product #${pid}`;
+        return `<a href="#" class="ai-product-link" data-pid="${pid}">${escapeHtml(title)}</a>`;
+      });
+
+      const parts = linkified.split(/(?:\.\s+|;\s+|\|\s+|\n+)/).map((p) => p.trim()).filter(Boolean).slice(0, 8);
+      const html = parts.map((p, i) => `<div class="ai-line">${i === 0 ? p : '<span class="bullet">•</span> ' + p}</div>`).join("");
+      return html;
+    }
+
+    function removeQueryFromAnswer(answer, query) {
+      if (!answer) return answer;
+      if (!query) return answer;
+      try {
+        let a = String(answer).replace(/\s+/g, ' ').trim();
+        const q = String(query).replace(/\s+/g, ' ').trim();
+        if (!q) return a;
+
+        // Remove exact user query from the beginning, with optional "Truy van:" prefix.
+        const escapedQuery = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        const leadingQueryPattern = new RegExp('^\\s*(?:truy\\s*van\\s*:\\s*|query\\s*:\\s*)?' + escapedQuery + '\\s*[:;,.!-]*\\s*', 'i');
+        a = a.replace(leadingQueryPattern, '');
+
+        // Remove assistant control tokens without deleting the full remaining sentence.
+        a = a.replace(/\bIntent:\s*[a-z0-9_-]+\b/ig, '');
+        a = a.replace(/\bGoi y tot nhat:\s*/ig, '');
+        a = a.replace(/\bLua chon thay the:\s*/ig, 'Lựa chọn thay thế: ');
+        a = a.replace(/\s+/g, ' ').trim();
+        return a;
+      } catch (e) {
+        return answer;
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>\"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     }
 
     function persistSession() {
@@ -1420,89 +1424,82 @@
     }
 
     function restoreSession() {
-      const token = localStorage.getItem("nova_market_token") || "";
+      state.token = localStorage.getItem("nova_market_token") || "";
       const userJson = localStorage.getItem("nova_market_user") || "";
-      const route = localStorage.getItem("nova_market_route") || "login";
-      state.token = token;
       try {
         state.currentUser = userJson ? JSON.parse(userJson) : null;
       } catch {
         state.currentUser = null;
       }
-      return route;
+      return localStorage.getItem("nova_market_route") || "login";
     }
 
-    function appendLog(title, payload) {
-      // Logging disabled after removing debug panel
+    function setStatus(elementId, message, ok = true) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      element.textContent = message;
+      element.className = "status " + (ok ? "ok" : "err");
     }
 
-    async function request(path, method = "GET", body = null, useAuth = false) {
+    function setText(elementId, value) {
+      const element = document.getElementById(elementId);
+      if (element) element.textContent = value;
+    }
+
+    async function apiRequest(path, { method = "GET", body = null, retries = 2 } = {}) {
       const headers = { "Content-Type": "application/json" };
-      if (useAuth && state.token) headers.Authorization = "Token " + state.token;
+      if (state.token) headers.Authorization = "Token " + state.token;
 
-      const response = await fetch(path, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : null
-      });
+      const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        data = { detail: "Response không phải JSON", rawStatus: response.status };
+      for (let attempt = 0; attempt <= retries; attempt++) {
+        try {
+          const response = await fetch(path, {
+            method,
+            headers,
+            body: body ? JSON.stringify(body) : null,
+          });
+
+          let data = null;
+          try {
+            data = await response.json();
+          } catch (parseErr) {
+            let rawText = "";
+            try {
+              rawText = await response.text();
+            } catch (e) {
+              rawText = "(no body)";
+            }
+            data = { detail: "Response không phải JSON", rawStatus: response.status, rawText };
+          }
+
+          // Retry on server errors (502/503/504) or when upstream returned non-JSON with 5xx
+          const status = response.status || (data && data.rawStatus) || 0;
+          const isServerErr = status >= 500 && status < 600;
+          if (isServerErr && attempt < retries) {
+            await delay(500 * (attempt + 1));
+            continue;
+          }
+
+          if (!response.ok) throw { status: response.status, data };
+          return data;
+        } catch (err) {
+          // network or fetch error: retry if attempts remain
+          if (attempt < retries) {
+            await delay(500 * (attempt + 1));
+            continue;
+          }
+          throw err;
+        }
       }
-
-      if (!response.ok) throw { status: response.status, data };
-      return data;
-    }
-
-    function setStatus(elId, msg, ok = true) {
-      const el = document.getElementById(elId);
-      el.textContent = msg;
-      el.className = "status " + (ok ? "ok" : "err");
-    }
-
-    function setText(id, text) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = text;
-    }
-
-    function getUserId() {
-      return Number((state.currentUser && state.currentUser.id) || 0);
-    }
-
-    function setRoute(route, replaceHash = false) {
-      const target = routes.includes(route) ? route : "login";
-      if (!state.currentUser && target !== "login") {
-        showView("login");
-        return;
-      }
-
-      state.currentRoute = target;
-      showView(target);
-      updateNav();
-      refreshTopbar();
-      persistSession();
-
-      const hash = "#" + target;
-      if (replaceHash) {
-        history.replaceState(null, "", hash);
-      } else if (location.hash !== hash) {
-        location.hash = hash;
-      }
-    }
-
-    function showView(route) {
-      Object.entries(viewMap).forEach(([key, el]) => {
-        el.classList.toggle("active", key === route);
-      });
+      // Should not reach here
+      throw { status: 520, data: { detail: "Unknown network error" } };
     }
 
     function updateNav() {
       document.querySelectorAll("#navBar button").forEach((button) => {
         const route = button.dataset.route;
-        const allowed = route === "login" || Boolean(state.currentUser);
+        const allowed = route === "login" || Boolean(state.currentUser) || route === "home";
         button.disabled = !allowed;
         button.classList.toggle("active", route === state.currentRoute);
       });
@@ -1511,44 +1508,113 @@
     function refreshTopbar() {
       const signedIn = Boolean(state.currentUser);
       const userLabel = signedIn ? (state.currentUser.username || "User") : "Guest";
-      setText("authPill", userLabel);
-      setText("cartPill", String((state.cart && state.cart.length) || 0) + " items");
-      setText("orderPill", state.lastOrder ? "Order #" + (state.lastOrder.id || state.lastOrder.order_id || "-") : "No order");
-      setText("homeUserLabel", userLabel);
-      setText("cartSummaryUser", userLabel);
-      setText("paymentSummaryOrder", state.lastOrder ? "#" + (state.lastOrder.id || state.lastOrder.order_id || "-") : "No order");
-      setText("paymentSummaryStatus", state.lastOrder ? (state.lastOrder.payment_status || state.lastOrder.status || "Pending") : "Pending");
-      setText("paymentSummaryShip", state.lastOrder ? (state.lastOrder.shipping_status || state.lastOrder.shipment_status || "Pending") : "Pending");
-      setText("cartSummaryOrder", state.lastOrder ? "#" + (state.lastOrder.id || state.lastOrder.order_id || "-") : "No order");
-      setText("homeCartCount", String((state.cart && state.cart.length) || 0));
-      setText("cartSummaryCount", String((state.cart && state.cart.length) || 0));
-      setText("homeProductCount", String(state.products.length));
-    }
+      const orderLabel = state.lastOrder ? "Order #" + (state.lastOrder.id || state.lastOrder.order_id || "-") : "No order";
 
-    function productListFromResponse(data) {
-      if (Array.isArray(data)) return data;
-      if (data && Array.isArray(data.results)) return data.results;
-      return [];
-    }
+      document.getElementById("authPill").textContent = userLabel;
+      document.getElementById("cartPill").textContent = String(state.cart.length || 0) + " items";
+      document.getElementById("orderPill").textContent = orderLabel;
 
-    function filteredAndPagedProducts() {
-      const term = state.search.trim().toLowerCase();
-      const filtered = state.products.filter((product) => {
-        const pieces = [
-          product.name,
-          product.category_name,
-          product.description,
-          product.brand,
-          product.book && product.book.author,
-          product.book && product.book.publisher,
-          product.electronics && product.electronics.brand,
-          product.fashion && product.fashion.color,
-          product.fashion && product.fashion.size
-        ].filter(Boolean).join(" ").toLowerCase();
-        return !term || pieces.includes(term);
+      ["homeUserLabel", "cartHeroUser"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = userLabel;
       });
 
+      const cartCount = String(state.cart.length || 0);
+      ["homeCartCount", "cartHeroCount"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = cartCount;
+      });
+
+      const orderShort = state.lastOrder ? "#" + (state.lastOrder.id || state.lastOrder.order_id || "-") : "No order";
+      ["cartHeroOrder", "lastOrderId"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = orderShort;
+      });
+    }
+
+    function showView(route) {
+      Object.entries(viewMap).forEach(([key, element]) => {
+        element.classList.toggle("active", key === route);
+      });
+    }
+
+    function setRoute(route, replaceHash = false) {
+      let target = routes.includes(route) ? route : "login";
+      if (!state.currentUser && target !== "login") target = "login";
+      if (target === "detail" && !state.selectedProduct) target = "home";
+
+      state.currentRoute = target;
+      showView(target);
+      updateNav();
+      refreshTopbar();
+      persistSession();
+
+      const hash = "#" + target;
+      if (replaceHash) history.replaceState(null, "", hash);
+      else if (location.hash !== hash) location.hash = hash;
+
+      if (target === "detail" && state.selectedProduct) renderDetail(state.selectedProduct);
+    }
+
+    function getUserId() {
+      return Number((state.currentUser && state.currentUser.id) || 0);
+    }
+
+    function getOrderId(order) {
+      return Number((order && (order.id || order.order_id)) || 0);
+    }
+
+    function getOrderStatus(order) {
+      return safeText(order && (order.status || order.payment_status || order.shipping_status), "Pending");
+    }
+
+    function getOrderItems(order) {
+      return Array.isArray(order && order.items) ? order.items : [];
+    }
+
+    function getProductDetails(product) {
+      const category = safeText(product.category_name || (product.category && product.category.name), "N/A");
+      const lines = [];
+      if (product.book) {
+        lines.push("Author: " + safeText(product.book.author));
+        lines.push("Publisher: " + safeText(product.book.publisher));
+        lines.push("ISBN: " + safeText(product.book.isbn));
+      }
+      if (product.electronics) {
+        lines.push("Brand: " + safeText(product.electronics.brand));
+        lines.push("Warranty: " + safeText(product.electronics.warranty) + " months");
+      }
+      if (product.fashion) {
+        lines.push("Size: " + safeText(product.fashion.size));
+        lines.push("Color: " + safeText(product.fashion.color));
+      }
+      if (!lines.length) lines.push("No extra detail from product-service.");
+      return { category, detail: lines.join(" • ") };
+    }
+
+    function productSearchText(product) {
+      return [
+        product.name,
+        product.category_name,
+        product.description,
+        product.brand,
+        product.book && product.book.author,
+        product.book && product.book.publisher,
+        product.electronics && product.electronics.brand,
+        product.fashion && product.fashion.color,
+        product.fashion && product.fashion.size,
+      ].filter(Boolean).join(" ").toLowerCase();
+    }
+
+    function getProductMap() {
+      return new Map(state.products.map((product) => [Number(product.id), product]));
+    }
+
+    function filteredProducts() {
+      const term = state.search.trim().toLowerCase();
+      const filtered = state.products.filter((product) => !term || productSearchText(product).includes(term));
       const sorted = filtered.slice();
+
       if (state.sortBy === "priceAsc") {
         sorted.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
       } else if (state.sortBy === "priceDesc") {
@@ -1565,370 +1631,530 @@
       return { items, totalPages, total: sorted.length };
     }
 
-    function getProductSpecificText(product) {
-      const category = (product.category_name || "").toLowerCase();
-      const details = [];
-      if (product.book) {
-        details.push("Author: " + renderTextContent(product.book.author));
-        details.push("Publisher: " + renderTextContent(product.book.publisher));
-        details.push("ISBN: " + renderTextContent(product.book.isbn));
-      }
-      if (product.electronics) {
-        details.push("Brand: " + renderTextContent(product.electronics.brand));
-        details.push("Warranty: " + renderTextContent(product.electronics.warranty) + " months");
-      }
-      if (product.fashion) {
-        details.push("Size: " + renderTextContent(product.fashion.size));
-        details.push("Color: " + renderTextContent(product.fashion.color));
-      }
-      if (!details.length) {
-        details.push("No extra detail from product service.");
-      }
-      return { category, text: details.join(" • ") };
-    }
-
-    function openDetail(product) {
-      state.selectedProduct = product;
-
-      document.getElementById("detailTitle").textContent = product.name;
-      document.getElementById("detailCategory").textContent = product.category_name || "N/A";
-      document.getElementById("detailSubtitle").textContent = "Xem chi tiết sản phẩm và chọn số lượng trước khi add to cart.";
-      document.getElementById("detailName").textContent = product.name;
-      document.getElementById("detailPrice").textContent = formatCurrency(product.price) + " • Stock: " + renderTextContent(product.stock);
-      document.getElementById("detailGeneral").textContent = "Category: " + renderTextContent(product.category_name) + " • ID: " + renderTextContent(product.id) + " • Stock: " + renderTextContent(product.stock);
-      document.getElementById("detailSpecific").textContent = getProductSpecificText(product).text;
-      document.getElementById("detailDesc").textContent = product.description || getProductSpecificText(product).text;
-      document.getElementById("detailQuantity").value = 1;
-      detailBackdrop.classList.add("open");
-      state.detailOpen = true;
-      updateHomeButtons();
-    }
-
-    function closeDetail() {
-      detailBackdrop.classList.remove("open");
-      state.detailOpen = false;
-    }
-
-    function getProductCardMeta(product) {
-      const specific = getProductSpecificText(product);
-      if (product.book) {
-        return {
-          label: "Book",
-          detail: "" + renderTextContent(product.book.author) + " • " + renderTextContent(product.book.publisher)
-        };
-      }
-      if (product.electronics) {
-        return {
-          label: "Electronics",
-          detail: "" + renderTextContent(product.electronics.brand) + " • " + renderTextContent(product.electronics.warranty) + " months"
-        };
-      }
-      if (product.fashion) {
-        return {
-          label: "Fashion",
-          detail: "" + renderTextContent(product.fashion.size) + " • " + renderTextContent(product.fashion.color)
-        };
-      }
-      return {
-        label: product.category_name || "Product",
-        detail: specific.text
-      };
-    }
-
-    function renderProducts() {
-      const box = document.getElementById("productsBox");
+    function renderProductCards() {
+      const grid = document.getElementById("productsGrid");
       const pageNumbers = document.getElementById("pageNumbers");
-      const { items, totalPages, total } = filteredAndPagedProducts();
+      const { items, totalPages, total } = filteredProducts();
 
-      document.getElementById("paginationInfo").textContent = total
-        ? "Page " + state.page + " / " + totalPages + " • " + total + " items"
-        : "No products";
+      document.getElementById("paginationInfo").textContent = total ? "Page " + state.page + " / " + totalPages : "Page 1";
+      document.getElementById("catalogCountLabel").textContent = total + " items";
+      setText("pageStatus", "Page " + state.page + " / " + totalPages);
+      setText("searchStatus", state.search ? "Filter: " + state.search : "Tất cả sản phẩm");
       document.getElementById("btnPrevPage").disabled = state.page <= 1;
       document.getElementById("btnNextPage").disabled = state.page >= totalPages;
 
+      const pageButtons = [];
       const startPage = Math.max(1, state.page - 2);
       const endPage = Math.min(totalPages, startPage + 4);
-      const pages = [];
       for (let page = startPage; page <= endPage; page += 1) {
-        pages.push('<button class="page-btn' + (page === state.page ? ' active' : '') + '" data-page-number="' + page + '">' + page + '</button>');
+        pageButtons.push('<button class="page-btn' + (page === state.page ? ' active' : '') + '" data-page-number="' + page + '">' + page + '</button>');
       }
-      pageNumbers.innerHTML = total ? pages.join("") : "";
+      pageNumbers.innerHTML = total ? pageButtons.join("") : "";
+
       pageNumbers.querySelectorAll("[data-page-number]").forEach((button) => {
         button.addEventListener("click", () => {
           state.page = Number(button.dataset.pageNumber);
-          renderProducts();
+          renderProductCards();
         });
       });
 
       if (!items.length) {
-        box.innerHTML = '<div class="empty-state">Không tìm thấy sản phẩm phù hợp.</div>';
-        updateHomeButtons();
+        grid.innerHTML = '<div class="empty-state">Không tìm thấy sản phẩm phù hợp.</div>';
         return;
       }
 
-      box.innerHTML = items.map((product) => {
-        const selected = state.selectedProduct && Number(state.selectedProduct.id) === Number(product.id);
-        const meta = getProductCardMeta(product);
+      grid.innerHTML = items.map((product) => {
+        const info = getProductDetails(product);
         return [
-          '<article class="product-card' + (selected ? ' selected' : '') + '" data-open-detail="' + product.id + '">',
+          '<article class="product-card" data-product-id="' + product.id + '">',
           '<div class="product-cover">',
-          '<div><h4>' + (product.name || ('Product #' + product.id)) + '</h4><div class="badge">ID #' + product.id + '</div></div>',
-          '<div class="badge">' + (product.stock != null ? product.stock + ' in stock' : 'Available') + '</div>',
+          '<div>',
+          '<span class="badge">ID #' + product.id + '</span>',
+          '<h4 style="margin-top:10px;">' + safeText(product.name, 'Product #' + product.id) + '</h4>',
           '</div>',
-          '<div class="product-meta"><span>' + meta.label + '</span><span class="price">' + formatCurrency(product.price) + '</span></div>',
-          '<div class="muted">' + meta.detail + '</div>',
-          '<div class="inline-actions"><button class="btn-secondary" data-detail-product="' + product.id + '">Xem chi tiết</button></div>',
+          '<div class="mini-meta"><span>' + safeText(info.category) + '</span><span>' + (product.stock != null ? product.stock + ' stock' : 'Available') + '</span></div>',
+          '</div>',
+          '<div class="product-meta"><span>' + info.detail + '</span><span class="price">' + formatCurrency(product.price) + '</span></div>',
           '</article>'
         ].join("");
       }).join("");
 
-      box.querySelectorAll("[data-detail-product]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const product = state.products.find((item) => Number(item.id) === Number(button.dataset.detailProduct));
-          if (product) {
-            openDetail(product);
-          }
+      grid.querySelectorAll("[data-product-id]").forEach((card) => {
+        card.addEventListener("click", async () => {
+          await openProductDetail(card.dataset.productId);
         });
       });
-
-      box.querySelectorAll("[data-open-detail]").forEach((card) => {
-        card.addEventListener("click", (event) => {
-          if (event.target.closest("button")) return;
-          const product = state.products.find((item) => Number(item.id) === Number(card.dataset.openDetail));
-          if (product) {
-            openDetail(product);
-          }
-        });
-      });
-
-      updateHomeButtons();
     }
 
-    function updateHomeButtons() {
-      // Button panel removed
+    function updateHomeSnapshot() {
+      const selected = state.selectedProduct;
+      const detail = selected ? getProductDetails(selected) : null;
+      setText("selectionTitle", selected ? safeText(selected.name) : "Chưa chọn sản phẩm");
+      setText("selectionMeta", selected ? detail.detail : "Mở detail từ Home để xem đầy đủ thông tin.");
     }
 
-    function getCartItemProductId(item) {
+    function renderDetail(product) {
+      if (!product) {
+        document.getElementById("detailName").textContent = "Chưa có sản phẩm nào được chọn";
+        document.getElementById("detailMiniMeta").textContent = "Mở từ trang Home để xem chi tiết";
+        document.getElementById("detailGeneral").textContent = "--";
+        document.getElementById("detailSpecific").textContent = "--";
+        document.getElementById("detailDesc").textContent = "--";
+        document.getElementById("detailPrice").textContent = "--";
+        document.getElementById("detailStock").textContent = "--";
+        document.getElementById("detailCategory").textContent = "--";
+        document.getElementById("detailHeroName").textContent = "No product selected";
+        document.getElementById("detailHeroCategory").textContent = "Choose one from Home";
+        document.getElementById("detailHeroPrice").textContent = "--";
+        document.getElementById("detailHeroStock").textContent = "Stock --";
+        return;
+      }
+
+      const info = getProductDetails(product);
+      document.getElementById("detailName").textContent = safeText(product.name);
+      document.getElementById("detailMiniMeta").textContent = "ID #" + safeText(product.id) + " • " + info.category;
+      document.getElementById("detailGeneral").textContent = "Category: " + info.category + " • ID: " + safeText(product.id) + " • Stock: " + safeText(product.stock);
+      document.getElementById("detailSpecific").textContent = info.detail;
+      document.getElementById("detailDesc").textContent = safeText(product.description || info.detail);
+      document.getElementById("detailPrice").textContent = formatCurrency(product.price);
+      document.getElementById("detailStock").textContent = safeText(product.stock);
+      document.getElementById("detailCategory").textContent = info.category;
+      document.getElementById("detailHeroName").textContent = safeText(product.name);
+      document.getElementById("detailHeroCategory").textContent = info.category;
+      document.getElementById("detailHeroPrice").textContent = formatCurrency(product.price);
+      document.getElementById("detailHeroStock").textContent = "Stock " + safeText(product.stock);
+    }
+
+    async function openProductDetail(productId) {
+      const id = Number(productId);
+      let product = state.products.find((item) => Number(item.id) === id);
+
+      try {
+        const data = await apiRequest("/products/" + id + "/");
+        if (data) product = data;
+      } catch {
+        // fallback to product list entry
+      }
+
+      if (!product) return;
+      state.selectedProduct = product;
+      renderDetail(product);
+      updateHomeSnapshot();
+      setRoute("detail");
+    }
+
+    function getCartProductId(item) {
       const product = item.product || item.product_detail || item;
       return Number(item.product_id || product.id || item.id || 0);
     }
 
-    function getCartItemQuantity(item) {
+    function getCartQuantity(item) {
       return Number(item.quantity || item.qty || 1);
     }
 
-    function getCartItemPrice(item) {
-      const product = item.product || item.product_detail || item;
-      const unitPrice = Number(item.price || product.price || 0);
-      if (Number.isFinite(unitPrice) && unitPrice > 0) {
-        return unitPrice;
-      }
-      return 100;
+    function getCartPrice(item, productMap) {
+      const product = productMap.get(getCartProductId(item)) || item.product || item.product_detail || item;
+      const price = Number(item.price || product.price || 0);
+      return Number.isFinite(price) && price > 0 ? price : 0;
     }
 
     function selectedCartSummary() {
-      let selectedCount = 0;
-      let selectedTotal = 0;
+      const productMap = getProductMap();
+      let count = 0;
+      let total = 0;
+
       state.cart.forEach((item) => {
-        const productId = getCartItemProductId(item);
-        if (!state.selectedCartProductIds.has(productId)) return;
-        selectedCount += 1;
-        selectedTotal += getCartItemPrice(item) * getCartItemQuantity(item);
+        const productId = getCartProductId(item);
+        if (!state.selectedCartIds.has(productId)) return;
+        count += 1;
+        total += getCartPrice(item, productMap) * getCartQuantity(item);
       });
-      return { selectedCount, selectedTotal };
+
+      return { count, total };
     }
 
-    function updateCartSelectionSummary() {
+    function updateCartSummary() {
       const summary = selectedCartSummary();
-      setText("cartSelectionSummary", "Đã chọn " + summary.selectedCount + " item • Tạm tính " + formatCurrency(summary.selectedTotal));
-      setText("createOrderSummary", "Đang checkout " + summary.selectedCount + " item • Tổng " + formatCurrency(summary.selectedTotal));
+      document.getElementById("cartSelectionSummary").textContent = "Đã chọn " + summary.count + " item • Tạm tính " + formatCurrency(summary.total);
     }
 
     function renderCart() {
       const box = document.getElementById("cartBox");
+      const productMap = getProductMap();
+
       if (!state.cart.length) {
         box.innerHTML = '<div class="empty-state">Giỏ hàng trống.</div>';
-        updateCartSelectionSummary();
+        updateCartSummary();
         return;
       }
 
       box.innerHTML = state.cart.map((item) => {
-        const product = item.product || item.product_detail || item;
-        const productId = getCartItemProductId(item);
-        const quantity = getCartItemQuantity(item);
-        const name = product.name || item.product_name || ('Product #' + productId);
-        const price = getCartItemPrice(item);
-        const selected = state.selectedCartProductIds.has(Number(productId));
+        const productId = getCartProductId(item);
+        const product = productMap.get(productId) || item.product || item.product_detail || item;
+        const selected = state.selectedCartIds.has(productId);
+        const quantity = getCartQuantity(item);
+        const price = getCartPrice(item, productMap);
+        const category = safeText(product.category_name || item.category_name, 'In cart');
+
         return [
           '<div class="cart-item' + (selected ? ' selected' : '') + '">',
-          '<label class="cart-select"><input type="checkbox" data-select-cart="' + productId + '" ' + (selected ? 'checked' : '') + '><span>Chọn item này để checkout</span></label>',
-          '<div class="row"><strong>' + name + '</strong><span>x' + quantity + '</span></div>',
-          '<div class="muted">' + (product.category_name || item.category_name || 'In cart') + '</div>',
-          '<div class="row"><span class="price">' + formatCurrency(price) + '</span><span>ID: ' + productId + '</span></div>',
-          '<div class="inline-actions"><button class="btn-ghost" data-remove-cart="' + productId + '">Remove</button></div>',
+          '<label class="cart-check"><input type="checkbox" data-cart-select="' + productId + '"' + (selected ? ' checked' : '') + '><span>Chọn item này để checkout</span></label>',
+          '<div class="row" style="margin-top: 8px;"><strong>' + safeText(product.name, 'Product #' + productId) + '</strong><span>x' + quantity + '</span></div>',
+          '<div class="muted">' + category + '</div>',
+          '<div class="row" style="margin-top: 8px;"><span class="price">' + formatCurrency(price) + '</span><span>ID: ' + productId + '</span></div>',
+          '<div class="inline-actions" style="margin-top: 10px;"><button class="btn-ghost" data-cart-remove="' + productId + '">Remove</button></div>',
           '</div>'
         ].join("");
       }).join("");
 
-      box.querySelectorAll("[data-remove-cart]").forEach((button) => {
-        button.addEventListener("click", () => removeCartItem(button.dataset.removeCart));
+      box.querySelectorAll("[data-cart-remove]").forEach((button) => {
+        button.addEventListener("click", () => removeCartItem(button.dataset.cartRemove));
       });
 
-      box.querySelectorAll("[data-select-cart]").forEach((input) => {
+      box.querySelectorAll("[data-cart-select]").forEach((input) => {
         input.addEventListener("change", () => {
-          const productId = Number(input.dataset.selectCart);
-          if (input.checked) {
-            state.selectedCartProductIds.add(productId);
-          } else {
-            state.selectedCartProductIds.delete(productId);
-          }
+          const productId = Number(input.dataset.cartSelect);
+          if (input.checked) state.selectedCartIds.add(productId);
+          else state.selectedCartIds.delete(productId);
           renderCart();
-          updateCartSelectionSummary();
+          updateCartSummary();
         });
       });
 
-      updateCartSelectionSummary();
+      updateCartSummary();
     }
 
-    function renderOrdersPreview(data) {
-      const target = document.getElementById("ordersPreview");
-      const items = Array.isArray(data) ? data : [data];
-      if (!items.length || !items[0]) {
-        target.innerHTML = '<div class="empty-state">Chưa có order.</div>';
+    function orderMatchesSearch(order) {
+      if (!state.orderSearch.trim()) return true;
+      const term = state.orderSearch.trim().toLowerCase();
+      const text = [
+        String(getOrderId(order)),
+        String(order.user_id || ""),
+        String(order.total_price || ""),
+        String(getOrderStatus(order)),
+        getOrderItems(order).map((item) => String(item.product_id || "")).join(" "),
+      ].join(" ").toLowerCase();
+      return text.includes(term);
+    }
+
+    function filteredOrders() {
+      const filtered = state.orders.slice().filter((order) => {
+        if (state.orderFilter !== "all" && getOrderStatus(order).toLowerCase() !== state.orderFilter) return false;
+        return orderMatchesSearch(order);
+      });
+      return filtered.sort((a, b) => getOrderId(b) - getOrderId(a));
+    }
+
+    function renderOrderItems(order) {
+      const container = document.getElementById("orderDetailItems");
+      if (!container) return;
+
+      const items = getOrderItems(order);
+      if (!items.length) {
+        container.innerHTML = '<div class="empty-state">Order này chưa có item.</div>';
         return;
       }
 
-      target.innerHTML = items.slice(0, 3).map((order) => [
-        '<div class="order-item">',
-        '<div class="row"><strong>Order #' + (order.id || order.order_id || '-') + '</strong><span>' + (order.status || 'pending') + '</span></div>',
-        '<div class="muted">' + (order.address || order.shipping_address || 'No address') + '</div>',
-        '<div class="muted">' + (order.total_price ? formatCurrency(order.total_price) : '') + '</div>',
+      container.innerHTML = items.map((item) => [
+        '<div class="order-item-chip">',
+        '<div class="row"><strong>Product #' + safeText(item.product_id, '-') + '</strong><span>x' + safeText(item.quantity, '1') + '</span></div>',
         '</div>'
       ].join("")).join("");
     }
 
-    function renderChat() {
-      if (!state.chatMessages.length) {
-        miniChat.innerHTML = '<div class="empty-state">Chưa có cuộc trò chuyện nào.</div>';
+    function renderOrderDetail(order) {
+      const current = order || state.selectedOrder || state.orders[0] || null;
+      state.selectedOrder = current || null;
+
+      setText("orderDetailId", current ? "#" + getOrderId(current) : "No order");
+      setText("orderDetailUser", current ? safeText(current.user_id) : "--");
+      setText("orderDetailStatus", current ? getOrderStatus(current) : "Pending");
+      setText("orderDetailTotal", current ? formatCurrency(current.total_price) : "--");
+
+      setText("ordersHeroCount", String(state.orders.length));
+      setText("ordersHeroSelected", current ? "#" + getOrderId(current) : "No order");
+      setText("ordersHeroStatus", current ? getOrderStatus(current) : "Pending");
+
+      renderOrderItems(current);
+      refreshTopbar();
+    }
+
+    function renderOrders() {
+      const previewBox = document.getElementById("ordersBox");
+      const listBox = document.getElementById("ordersListBox");
+      const orders = filteredOrders();
+
+      if (previewBox) {
+        previewBox.innerHTML = orders.slice(0, 5).map((order) => [
+          '<div class="order-item">',
+          '<div class="row"><strong>Order #' + getOrderId(order) + '</strong><span>' + getOrderStatus(order) + '</span></div>',
+          '<div class="muted">User: ' + safeText(order.user_id) + '</div>',
+          '<div class="muted">Total: ' + formatCurrency(order.total_price) + '</div>',
+          '</div>'
+        ].join("")).join("") || '<div class="empty-state">Chưa có order.</div>';
+      }
+
+      if (listBox) {
+        listBox.innerHTML = orders.map((order) => {
+          const selected = state.selectedOrder && getOrderId(state.selectedOrder) === getOrderId(order);
+          return [
+            '<article class="order-card' + (selected ? ' selected' : '') + '" data-order-id="' + getOrderId(order) + '">',
+            '<div class="row"><strong>Order #' + getOrderId(order) + '</strong><span>' + getOrderStatus(order) + '</span></div>',
+            '<div class="mini-meta"><span>User #' + safeText(order.user_id) + '</span><span>' + formatCurrency(order.total_price) + '</span></div>',
+            '<div class="muted">' + getOrderItems(order).length + ' item(s)</div>',
+            '</article>'
+          ].join("");
+        }).join("") || '<div class="empty-state">Chưa có order nào khớp bộ lọc.</div>';
+
+        listBox.querySelectorAll("[data-order-id]").forEach((card) => {
+          card.addEventListener("click", () => selectOrder(card.dataset.orderId));
+        });
+      }
+
+      if (!state.selectedOrder || !orders.some((order) => getOrderId(order) === getOrderId(state.selectedOrder))) {
+        state.selectedOrder = orders[0] || state.selectedOrder || null;
+      }
+
+      renderOrderDetail(state.selectedOrder);
+    }
+
+    function selectOrder(orderId) {
+      const selected = state.orders.find((order) => getOrderId(order) === Number(orderId));
+      if (!selected) return;
+      state.selectedOrder = selected;
+      renderOrders();
+      setRoute("orders");
+    }
+
+    function pushConversation(role, title, content) {
+      state.conversation.push({ role, title, content, time: new Date().toLocaleTimeString() });
+      renderConversation();
+    }
+
+    function toRawJsonText(data) {
+      if (typeof data === "string") {
+        try {
+          const parsed = JSON.parse(data);
+          return JSON.stringify(parsed, null, 2);
+        } catch {
+          return data;
+        }
+      }
+      try {
+        return JSON.stringify(data, null, 2);
+      } catch {
+        return String(data);
+      }
+    }
+
+    function renderConversation() {
+      const box = document.getElementById("aiConversation");
+      if (!state.conversation.length) {
+        box.innerHTML = '<div class="empty-state">Chưa có cuộc trò chuyện nào.</div>';
         return;
       }
 
-      miniChat.innerHTML = state.chatMessages.map((message) => [
-        '<div class="message ' + message.role + '">',
-        '<div class="meta"><span>' + message.title + '</span><span>' + message.time + '</span></div>',
-        '<div>' + message.content + '</div>',
-        '</div>'
-      ].join("")).join("");
-      miniChat.scrollTop = miniChat.scrollHeight;
+      box.innerHTML = state.conversation.map((message) => {
+        const meta = '<div class="meta"><span>' + escapeHtml(safeText(message.title)) + '</span><span>' + escapeHtml(safeText(message.time)) + '</span></div>';
+        let body = "";
+
+        if (message.role === "ai") {
+          let answer = "";
+
+          if (typeof message.content === "string") {
+            answer = message.content;
+          } else if (message.content?.answer) {
+            answer = message.content.answer;
+          } else if (message.content?.message) {
+            answer = message.content.message;
+          } else if (message.content?.response) {
+            answer = message.content.response;
+          } else {
+            answer = JSON.stringify(message.content);
+          }
+
+          body = `
+            <div class="ai-message">
+              ${formatAIHtml(answer)}
+            </div>
+          `;
+        } else {
+          body = `<div>${escapeHtml(safeText(message.content))}</div>`;
+        }
+        return '<div class="message ' + message.role + '">' + meta + body + '</div>';
+      }).join("");
+      box.scrollTop = box.scrollHeight;
     }
 
-    function pushChat(role, title, content) {
-      state.chatMessages.push({ role, title, content, time: new Date().toLocaleTimeString() });
-      renderChat();
-    }
-
-    function renderAIOutput(data) {
+    function renderAIResponse(data) {
+      const container = document.getElementById("aiResponse");
+      console.log("AI DATA =", data);
+      console.log("TYPE =", typeof data);
       if (!data) {
-        document.getElementById("aiResponse").textContent = "Chưa có phản hồi AI.";
+        container.innerHTML = `
+          <div class="ai-empty">
+            Nova AI chưa có phản hồi.
+          </div>
+        `;
         return;
       }
 
-      const text = typeof data === "string" ? data : (data.answer || data.response || data.message || data.detail || "");
-      const clean = formatAIText(text || data);
-      document.getElementById("aiResponse").textContent = clean;
-    }
+      const recommendations = Array.isArray(data.recommendations)
+        ? data.recommendations
+        : [];
 
-    function refreshCartSummary() {
-      setText("cartSummaryCount", String(state.cart.length));
-      setText("homeCartCount", String(state.cart.length));
-      setText("cartPill", String(state.cart.length) + " items");
-      setText("homeProductCount", String(state.products.length));
-      setText("homeUserLabel", state.currentUser ? (state.currentUser.username || 'User') : 'Guest');
-      setText("cartSummaryUser", state.currentUser ? (state.currentUser.username || 'User') : 'Guest');
-      updateCartSelectionSummary();
-    }
+      // title sạch
+      let title = "Gợi ý sản phẩm dành cho bạn";
 
-    function formatAIText(raw) {
-      const source = typeof raw === "string" ? raw : JSON.stringify(raw);
-      const text = source.replace(/[\{\}\[\]"]/g, " ").replace(/\s+/g, " ").trim();
-      if (!text) return "Nova AI chưa có nội dung trả lời.";
-      const lines = text
-        .split(/(?:\.\s+|\|\s+|;\s+)/)
-        .map((line) => line.trim())
-        .filter(Boolean)
-        .slice(0, 6);
-      if (!lines.length) {
-        return text;
+      if (typeof data.answer === "string") {
+        const cleaned = data.answer
+          .replace(/intent\s*:\s*[^,]+/ig, "")
+          .replace(/recommendations\s*:.*/ig, "")
+          .replace(/answer\s*:/ig, "")
+          .trim();
+
+        if (cleaned.length > 5) {
+          title = cleaned;
+        }
       }
-      return lines.map((line, index) => (index === 0 ? line : "- " + line)).join("\n");
-    }
 
-    function routeFromHash() {
-      const hash = (location.hash || "#login").replace("#", "");
-      setRoute(hash, true);
+      const html = recommendations.map((item) => {
+        const pid = item.product_id;
+        const name = item.name || "Unnamed product";
+        const category = item.category || "";
+        const price = item.price || 0;
+
+        return `
+          <div class="ai-card">
+            <div class="ai-card-top">
+              <div>
+                <div class="ai-card-title">
+                  ${escapeHtml(name)}
+                </div>
+
+                <div class="ai-card-category">
+                  ${escapeHtml(category)}
+                </div>
+              </div>
+
+              <div class="ai-card-price">
+                $${price}
+              </div>
+            </div>
+
+            <div class="ai-card-actions">
+              <a
+                href="#"
+                class="ai-view-btn"
+                data-pid="${pid}"
+              >
+                Xem sản phẩm →
+              </a>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      container.innerHTML = `
+        <div class="ai-header">
+          ${escapeHtml(title)}
+        </div>
+
+        <div class="ai-grid">
+          ${html}
+        </div>
+      `;
     }
 
     async function loadProducts() {
       try {
-        const data = await request("/products/");
-        state.products = productListFromResponse(data);
-        if (!state.selectedProduct || !state.products.some((p) => Number(p.id) === Number(state.selectedProduct.id))) {
-          state.selectedProduct = state.products[0] || null;
-        }
-        if (state.selectedProduct) {
-          document.getElementById("productId").value = state.selectedProduct.id;
-          document.getElementById("selectedProductInfo").textContent = state.selectedProduct.name + " • " + formatCurrency(state.selectedProduct.price);
-        }
-        renderProducts();
+        const data = await apiRequest("/products/");
+        state.products = normalizeList(data);
+        state.filteredProducts = state.products.slice();
+        if (!state.selectedProduct && state.products.length) state.selectedProduct = state.products[0];
+        document.getElementById("homeProductCount").textContent = String(state.products.length);
+        updateHomeSnapshot();
+        renderProductCards();
+        if (state.selectedProduct) renderDetail(state.selectedProduct);
         refreshTopbar();
-        updateHomeButtons();
-        appendLog("GET /products/", data);
-      } catch (err) {
-        appendLog("GET /products/ error", err);
-        document.getElementById("productsBox").innerHTML = '<div class="empty-state">Không tải được danh sách sản phẩm.</div>';
+      } catch {
+        document.getElementById("productsGrid").innerHTML = '<div class="empty-state">Không tải được danh sách sản phẩm.</div>';
+        document.getElementById("catalogCountLabel").textContent = "0 items";
+        setStatus("authStatus", "Không tải được sản phẩm. Kiểm tra gateway / product-service.", false);
       }
     }
 
-    function ensureProductsLoaded() {
-      if (!state.products.length) {
-        loadProducts();
-        return;
+    async function loadCart() {
+      try {
+        const userId = getUserId();
+        const data = await apiRequest("/cart/?user_id=" + userId);
+        state.cart = Array.isArray(data) ? data : (data.items || data.results || []);
+
+        const cartIds = new Set(state.cart.map((item) => getCartProductId(item)).filter((id) => id > 0));
+        if (!state.selectedCartIds.size) cartIds.forEach((id) => state.selectedCartIds.add(id));
+        else state.selectedCartIds = new Set(Array.from(state.selectedCartIds).filter((id) => cartIds.has(id)));
+
+        renderCart();
+        refreshTopbar();
+      } catch {
+        document.getElementById("cartBox").innerHTML = '<div class="empty-state">Không tải được cart.</div>';
       }
-      renderProducts();
-      refreshTopbar();
     }
 
-    function selectProduct(productId) {
-      const product = state.products.find((item) => Number(item.id) === Number(productId));
-      if (!product) return;
-      state.selectedProduct = product;
-      document.getElementById("productId").value = product.id;
-      document.getElementById("selectedProductInfo").textContent = product.name + " • " + formatCurrency(product.price);
-      updateHomeButtons();
-      refreshTopbar();
-      setRoute("home");
+    async function loadOrders() {
+      try {
+        const data = await apiRequest("/orders/");
+        state.orders = normalizeList(data);
+        state.lastOrder = state.orders[0] || state.lastOrder;
+        if (!state.selectedOrder || !state.orders.some((order) => getOrderId(order) === getOrderId(state.selectedOrder))) {
+          state.selectedOrder = state.lastOrder || state.orders[0] || null;
+        }
+        if (state.lastOrder) await refreshOrderStatuses(getOrderId(state.lastOrder));
+        renderOrders();
+        refreshTopbar();
+      } catch {
+        const previewBox = document.getElementById("ordersBox");
+        const listBox = document.getElementById("ordersListBox");
+        if (previewBox) previewBox.innerHTML = '<div class="empty-state">Không tải được order.</div>';
+        if (listBox) listBox.innerHTML = '<div class="empty-state">Không tải được order.</div>';
+      }
     }
 
-    window.selectProduct = selectProduct;
+    async function refreshOrderStatuses(orderId) {
+      if (!orderId) return;
+      try {
+        const payment = await apiRequest("/payment/status?order_id=" + orderId);
+        const paymentRecord = Array.isArray(payment) ? payment[0] : payment;
+        document.getElementById("paymentStatus").textContent = safeText(paymentRecord && (paymentRecord.status || paymentRecord.payment_status), "Pending");
+      } catch {
+        document.getElementById("paymentStatus").textContent = "Pending";
+      }
+
+      try {
+        const shipping = await apiRequest("/shipping/status?order_id=" + orderId);
+        const shippingRecord = Array.isArray(shipping) ? shipping[0] : shipping;
+        document.getElementById("shippingStatus").textContent = safeText(shippingRecord && (shippingRecord.status || shippingRecord.shipping_status), "Pending");
+      } catch {
+        document.getElementById("shippingStatus").textContent = "Pending";
+      }
+    }
 
     async function handleLogin() {
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
+
       try {
-        const data = await request("/auth/login", "POST", { username, password });
+        const data = await apiRequest("/auth/login", { method: "POST", body: { username, password } });
         state.token = data.token;
         state.currentUser = data.user;
-        document.getElementById("authStatus").textContent = "Đăng nhập thành công.";
-        document.getElementById("authStatus").className = "status ok";
+        setStatus("authStatus", "Đăng nhập thành công.", true);
         persistSession();
-        refreshTopbar();
         updateNav();
+        refreshTopbar();
+        await Promise.all([loadProducts(), loadCart(), loadOrders(), loadAISummary()]);
         setRoute("home", true);
-        await loadProducts();
-        appendLog("Login", data);
-      } catch (err) {
-        appendLog("Login error", err);
-        setStatus("authStatus", "Đăng nhập thất bại.", false);
+      } catch (error) {
+        setStatus("authStatus", (error && error.data && error.data.detail) ? error.data.detail : "Đăng nhập thất bại.", false);
       }
     }
 
@@ -1936,213 +2162,193 @@
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
       const role = document.getElementById("role").value;
+
       try {
-        const data = await request("/auth/register", "POST", { username, password, role });
-        appendLog("Register", data);
+        await apiRequest("/auth/register", { method: "POST", body: { username, password, role } });
         setStatus("authStatus", "Đăng ký thành công. Hãy login.", true);
-      } catch (err) {
-        appendLog("Register error", err);
-        setStatus("authStatus", "Đăng ký thất bại.", false);
+      } catch (error) {
+        setStatus("authStatus", (error && error.data && error.data.detail) ? error.data.detail : "Đăng ký thất bại.", false);
       }
     }
 
-    async function addCart() {
-      const product = state.selectedProduct;
-      if (!state.currentUser || !product) {
-        setStatus("authStatus", "Hãy login và chọn sản phẩm trước.", false);
+    async function addProductToCart(productId, quantity) {
+      if (!state.currentUser) {
+        setRoute("login");
+        setStatus("authStatus", "Hãy login trước khi thêm vào cart.", false);
         return;
       }
-      const quantity = Number(document.getElementById("quantity").value || 1);
+
       try {
-        const data = await request("/cart/add", "POST", {
-          user_id: getUserId(),
-          product_id: Number(product.id),
-          quantity
-        });
-        appendLog("POST /cart/add", data);
-        await loadCart();
+        await apiRequest("/cart/add", { method: "POST", body: { user_id: getUserId(), product_id: Number(productId), quantity: Number(quantity) || 1 } });
+        await Promise.all([loadCart(), loadOrders()]);
         setRoute("cart");
-      } catch (err) {
-        appendLog("POST /cart/add error", err);
-        document.getElementById("selectedProductInfo").textContent = "Không thêm được vào cart.";
+      } catch (error) {
+        alert((error && error.data && error.data.detail) ? error.data.detail : "Không thêm được vào cart.");
       }
     }
 
     async function removeCartItem(productId) {
       try {
-        const data = await request("/cart/remove", "DELETE", { user_id: getUserId(), product_id: Number(productId) });
-        state.selectedCartProductIds.delete(Number(productId));
-        appendLog("DELETE /cart/remove", data);
+        await apiRequest("/cart/remove", { method: "DELETE", body: { user_id: getUserId(), product_id: Number(productId) } });
+        state.selectedCartIds.delete(Number(productId));
         await loadCart();
-      } catch (err) {
-        appendLog("DELETE /cart/remove error", err);
+      } catch (error) {
+        alert((error && error.data && error.data.detail) ? error.data.detail : "Không xoá được item.");
       }
     }
 
     async function createOrder() {
-      const selectedProductIds = Array.from(state.selectedCartProductIds);
-      if (!selectedProductIds.length) {
-        setText("cartHint", "Bạn chưa chọn cart item nào để tạo order.");
+      const selectedProductIds = Array.from(state.selectedCartIds);
+      if (!state.cart.length) {
+        document.getElementById("cartSelectionSummary").textContent = "Giỏ hàng đang trống.";
+        return;
+      }
+
+      const address = document.getElementById("cartAddress").value.trim();
+      if (!address) {
+        document.getElementById("cartSelectionSummary").textContent = "Vui lòng nhập địa chỉ giao hàng.";
         return;
       }
 
       try {
-        const data = await request("/orders/create-from-cart", "POST", {
+        const payload = {
           user_id: getUserId(),
-          address: document.getElementById("address").value.trim(),
-          selected_product_ids: selectedProductIds,
+          address,
+        };
+        if (selectedProductIds.length) {
+          payload.selected_product_ids = selectedProductIds;
+        }
+
+        const data = await apiRequest("/orders/create-from-cart", {
+          method: "POST",
+          body: payload,
         });
+
         state.lastOrder = data;
-        const orderId = data.id || data.order_id || "";
-        document.getElementById("orderId").value = orderId;
-        document.getElementById("paymentOrderId").value = orderId;
-        renderOrdersPreview(data);
+        state.selectedOrder = data;
+        state.orders = [data, ...state.orders.filter((order) => getOrderId(order) !== getOrderId(data))];
+        renderOrders();
         refreshTopbar();
-        appendLog("POST /orders/create-from-cart", data);
-        setRoute("payment");
-      } catch (err) {
-        appendLog("POST /orders/create-from-cart error", err);
-        const detail = (err && err.data && err.data.detail)
-          ? err.data.detail
-          : "Tạo đơn thất bại. Kiểm tra cart, item đã chọn và địa chỉ giao hàng.";
-        document.getElementById("cartHint").textContent = detail;
+        await loadOrders();
+        await refreshOrderStatuses(getOrderId(data));
+        setRoute("orders");
+      } catch (error) {
+        const detail = error && error.data && error.data.detail ? error.data.detail : "Tạo order thất bại.";
+        document.getElementById("cartSelectionSummary").textContent = detail;
       }
     }
 
-    async function loadOrders() {
+    async function checkPaymentStatus() {
+      const orderId = Number((state.lastOrder && (state.lastOrder.id || state.lastOrder.order_id)) || 0);
+      if (!orderId) return;
       try {
-        const data = await request("/orders/");
-        const orders = Array.isArray(data) ? data : (data.results || []);
-        if (orders.length) {
-          state.lastOrder = orders[0];
-          document.getElementById("orderId").value = state.lastOrder.id || state.lastOrder.order_id || "";
-          document.getElementById("paymentOrderId").value = state.lastOrder.id || state.lastOrder.order_id || "";
-        }
-        renderOrdersPreview(data);
-        refreshTopbar();
-        appendLog("GET /orders/", data);
-      } catch (err) {
-        appendLog("GET /orders/ error", err);
-        document.getElementById("ordersPreview").innerHTML = '<div class="empty-state">Không tải được order.</div>';
+        const data = await apiRequest("/payment/status?order_id=" + orderId);
+        const record = Array.isArray(data) ? data[0] : data;
+        document.getElementById("paymentStatus").textContent = safeText(record && record.status, "Pending");
+      } catch {
+        document.getElementById("paymentStatus").textContent = "Pending";
       }
     }
 
-    async function loadCart() {
+    async function checkShippingStatus() {
+      const orderId = Number((state.lastOrder && (state.lastOrder.id || state.lastOrder.order_id)) || 0);
+      if (!orderId) return;
       try {
-        const userId = getUserId();
-        const data = await request("/cart/?user_id=" + userId);
-        state.cart = Array.isArray(data) ? data : (data.items || data.results || []);
-
-        const currentIds = new Set(state.cart.map((item) => getCartItemProductId(item)).filter((id) => id > 0));
-        if (!state.selectedCartProductIds.size) {
-          currentIds.forEach((id) => state.selectedCartProductIds.add(id));
-        } else {
-          state.selectedCartProductIds = new Set(Array.from(state.selectedCartProductIds).filter((id) => currentIds.has(id)));
-        }
-
-        renderCart();
-        refreshCartSummary();
-        appendLog("GET /cart/", data);
-      } catch (err) {
-        appendLog("GET /cart/ error", err);
-        document.getElementById("cartBox").innerHTML = '<div class="empty-state">Không tải được cart.</div>';
+        const data = await apiRequest("/shipping/status?order_id=" + orderId);
+        const record = Array.isArray(data) ? data[0] : data;
+        document.getElementById("shippingStatus").textContent = safeText(record && record.status, "Pending");
+      } catch {
+        document.getElementById("shippingStatus").textContent = "Pending";
       }
     }
 
-    async function payNow() {
-      const orderId = Number(document.getElementById("paymentOrderId").value || document.getElementById("orderId").value || 0);
-      const amount = Number(document.getElementById("amount").value || 0);
+    async function loadAISummary() {
       try {
-        const data = await request("/payment/pay", "POST", { order_id: orderId, amount });
-        document.getElementById("paymentBox").innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-        setText("paymentSummaryStatus", data.status || data.payment_status || "Paid");
-        appendLog("POST /payment/pay", data);
-      } catch (err) {
-        appendLog("POST /payment/pay error", err);
-        document.getElementById("paymentBox").innerHTML = '<pre>' + JSON.stringify(err, null, 2) + '</pre>';
-      }
-    }
-
-    async function loadPaymentStatus() {
-      const orderId = Number(document.getElementById("paymentOrderId").value || document.getElementById("orderId").value || 0);
-      try {
-        const data = await request("/payment/status" + (orderId ? "?order_id=" + orderId : ""));
-        document.getElementById("paymentBox").innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-        setText("paymentSummaryStatus", data.status || data.payment_status || "Pending");
-        appendLog("GET /payment/status", data);
-      } catch (err) {
-        appendLog("GET /payment/status error", err);
-      }
-    }
-
-    async function loadShippingStatus() {
-      const orderId = Number(document.getElementById("paymentOrderId").value || document.getElementById("orderId").value || 0);
-      try {
-        const data = await request("/shipping/status" + (orderId ? "?order_id=" + orderId : ""));
-        document.getElementById("shippingBox").innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-        setText("paymentSummaryShip", data.status || data.shipping_status || "Pending");
-        appendLog("GET /shipping/status", data);
-      } catch (err) {
-        appendLog("GET /shipping/status error", err);
+        const data = await apiRequest("/ai/summary");
+        const text = typeof data === "string" ? data : (data.summary || data.answer || data.response || JSON.stringify(data));
+        state.aiSummary = text;
+        document.getElementById("aiSummary").textContent = formatAIText(text);
+      } catch {
+        document.getElementById("aiSummary").textContent = "Không tải được summary từ ai-service.";
       }
     }
 
     async function sendAI(kind) {
       const query = document.getElementById("aiQuery").value.trim();
-      const userId = getUserId() || 0;
-      if (!query) {
-        pushChat("ai", "Nova AI", "Vui lòng nhập câu hỏi trước khi gửi.");
-        renderAIOutput("Vui lòng nhập câu hỏi trước khi gửi.");
+      const userId = getUserId() || null;
+
+      if (!query && kind !== "summary") {
+        pushConversation("ai", "Nova AI", "Vui lòng nhập câu hỏi trước khi gửi.");
+        renderAIResponse("Vui lòng nhập câu hỏi trước khi gửi.");
         return;
       }
 
-      pushChat("user", state.currentUser ? (state.currentUser.username || "You") : "Guest", query);
+      if (kind === "summary") {
+        await loadAISummary();
+        return;
+      }
+
+      pushConversation("user", state.currentUser ? (state.currentUser.username || "You") : "Guest", query);
 
       try {
         let data;
         if (kind === "recommend") {
-          const qs = new URLSearchParams({ user_id: String(userId), limit: "5" });
-          if (query) qs.set("query", query);
-          data = await request("/ai/recommend?" + qs.toString());
+          const params = new URLSearchParams({ user_id: String(userId || 0), limit: "5" });
+          if (query) params.set("query", query);
+          data = await apiRequest("/ai/recommend?" + params.toString());
         } else {
-          data = await request("/ai/chatbot", "POST", { user_id: userId || null, query, limit: 5 });
+          data = await apiRequest("/ai/chatbot", { method: "POST", body: { user_id: userId, query, limit: 5 } });
         }
 
-        const answer = typeof data === "string" ? data : (data.answer || data.response || data.message || data.detail || JSON.stringify(data, null, 2));
-        pushChat("ai", "Nova AI", formatAIText(answer));
-        renderAIOutput(answer);
-        appendLog(kind === "recommend" ? "GET /ai/recommend" : "POST /ai/chatbot", data);
-      } catch (err) {
-        appendLog(kind === "recommend" ? "GET /ai/recommend error" : "POST /ai/chatbot error", err);
-        const fallback = "Không thể phản hồi lúc này. Hãy thử lại sau.";
-        pushChat("ai", "Nova AI", fallback);
-        renderAIOutput(fallback);
+        const rawResponse = toRawJsonText(data);
+        // populate debug panel with raw payload for easier inspection when console is not available
+        try {
+          const dbgEl = document.getElementById('aiDebug');
+          if (dbgEl) dbgEl.textContent = rawResponse;
+        } catch (e) { /* ignore */ }
+        console.debug('[AI debug] raw data:', data);
+        pushConversation("ai", "Nova AI", rawResponse);
+        renderAIResponse(rawResponse);
+      } catch (error) {
+        // Friendly fallback when AI is unavailable or returned non-JSON
+        let fallback = "Không thể phản hồi lúc này. Vui lòng thử lại sau.";
+        if (error && error.data && error.data.rawText) {
+          // upstream returned non-JSON (e.g., HTML error page) — keep message friendly
+          fallback = "AI hiện tạm thời không khả dụng. Vui lòng thử lại sau.";
+        } else if (error && error.data && error.data.detail) {
+          fallback = error.data.detail;
+        }
+        pushConversation("ai", "Nova AI", fallback);
+        renderAIResponse(fallback);
       }
     }
 
     function syncVisibleState() {
-      refreshTopbar();
       updateNav();
-      updateHomeButtons();
-      refreshCartSummary();
-      renderChat();
-      if (!state.currentUser) {
-        setRoute("login", true);
-        return;
-      }
-
-      if (state.currentRoute === "login") {
-        setRoute("home", true);
-      }
+      refreshTopbar();
+      updateHomeSnapshot();
+      renderConversation();
     }
 
-    function toggleAiWidget(force) {
-      state.aiOpen = typeof force === "boolean" ? force : !state.aiOpen;
-      aiWidget.classList.toggle("open", state.aiOpen);
-      aiWidget.setAttribute("aria-hidden", String(!state.aiOpen));
-      if (state.aiOpen) {
-        renderChat();
+    async function init() {
+      const restoredRoute = restoreSession();
+      renderDetail(state.selectedProduct);
+      renderOrders();
+      renderConversation();
+      updateNav();
+      refreshTopbar();
+
+      const hashRoute = (location.hash || "#").replace("#", "");
+      const initialRoute = routes.includes(hashRoute) ? hashRoute : (routes.includes(restoredRoute) ? restoredRoute : (state.currentUser ? "home" : "login"));
+      setRoute(initialRoute, true);
+
+      if (state.currentUser) {
+        await Promise.all([loadProducts(), loadCart(), loadOrders(), loadAISummary()]);
+        updateHomeSnapshot();
+        if (state.selectedProduct) renderDetail(state.selectedProduct);
       }
+
+      syncVisibleState();
     }
 
     document.getElementById("btnLogin").addEventListener("click", handleLogin);
@@ -2150,99 +2356,92 @@
     document.getElementById("btnReloadProducts").addEventListener("click", loadProducts);
     document.getElementById("btnPrevPage").addEventListener("click", () => {
       state.page = Math.max(1, state.page - 1);
-      renderProducts();
+      renderProductCards();
     });
     document.getElementById("btnNextPage").addEventListener("click", () => {
       const totalPages = Math.max(1, Math.ceil(state.filteredProducts.length / state.pageSize));
       state.page = Math.min(totalPages, state.page + 1);
-      renderProducts();
+      renderProductCards();
     });
     document.getElementById("productSearch").addEventListener("input", (event) => {
       state.search = event.target.value;
       state.page = 1;
-      renderProducts();
+      renderProductCards();
     });
     document.getElementById("sortProducts").addEventListener("change", (event) => {
       state.sortBy = event.target.value;
       state.page = 1;
-      renderProducts();
+      renderProductCards();
     });
     document.getElementById("pageSizeSelect").addEventListener("change", (event) => {
-      state.pageSize = Math.max(1, Number(event.target.value) || 8);
+      state.pageSize = Math.max(1, Number(event.target.value) || 12);
       state.page = 1;
-      renderProducts();
+      renderProductCards();
     });
+
+    document.getElementById("btnAddFromDetail").addEventListener("click", () => {
+      if (!state.selectedProduct) return;
+      addProductToCart(state.selectedProduct.id, document.getElementById("detailQuantity").value || 1);
+    });
+    document.getElementById("btnBackHomeFromDetail").addEventListener("click", () => setRoute("home"));
+
     document.getElementById("btnLoadCart").addEventListener("click", loadCart);
     document.getElementById("btnSelectAllCart").addEventListener("click", () => {
-      state.selectedCartProductIds = new Set(state.cart.map((item) => getCartItemProductId(item)));
+      state.selectedCartIds = new Set(state.cart.map((item) => getCartProductId(item)).filter((id) => id > 0));
       renderCart();
+      updateCartSummary();
     });
     document.getElementById("btnClearCartSelection").addEventListener("click", () => {
-      state.selectedCartProductIds = new Set();
+      state.selectedCartIds = new Set();
       renderCart();
+      updateCartSummary();
     });
     document.getElementById("btnCreateOrder").addEventListener("click", createOrder);
-    document.getElementById("btnGoHomeFromCart").addEventListener("click", () => setRoute("home"));
-    document.getElementById("btnGoPaymentFromCart").addEventListener("click", () => setRoute("payment"));
-    document.getElementById("btnManualPay").addEventListener("click", payNow);
-    document.getElementById("btnPaymentStatus").addEventListener("click", loadPaymentStatus);
-    document.getElementById("btnShippingStatus").addEventListener("click", loadShippingStatus);
-    document.getElementById("btnGoHomeFromPayment").addEventListener("click", () => setRoute("home"));
-    document.getElementById("btnGoCartFromPayment").addEventListener("click", () => setRoute("cart"));
+    document.getElementById("btnCheckPayment").addEventListener("click", checkPaymentStatus);
+    document.getElementById("btnCheckShipping").addEventListener("click", checkShippingStatus);
+    document.getElementById("btnBackHomeFromCart").addEventListener("click", () => setRoute("home"));
+    const orderSearchInput = document.getElementById("orderSearch");
+    if (orderSearchInput) {
+      orderSearchInput.addEventListener("input", (event) => {
+        state.orderSearch = event.target.value;
+        renderOrders();
+      });
+    }
+
+    document.getElementById("btnReloadOrders").addEventListener("click", loadOrders);
+    document.getElementById("btnGoCartFromOrders").addEventListener("click", () => setRoute("cart"));
+    document.getElementById("btnGoHomeFromOrders").addEventListener("click", () => setRoute("home"));
+    document.querySelectorAll("[data-order-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.orderFilter = button.dataset.orderFilter;
+        document.querySelectorAll("[data-order-filter]").forEach((item) => item.classList.toggle("active", item.dataset.orderFilter === state.orderFilter));
+        renderOrders();
+      });
+    });
+
+    document.getElementById("btnAIChat").addEventListener("click", () => sendAI("chat"));
+    document.getElementById("btnAIRecommend").addEventListener("click", () => sendAI("recommend"));
+    document.getElementById("btnAISummary").addEventListener("click", () => sendAI("summary"));
+    document.getElementById("btnAIDebugToggle").addEventListener("click", () => {
+      const panel = document.getElementById('aiDebugPanel');
+      if (!panel) return;
+      panel.style.display = (panel.style.display === 'none' || !panel.style.display) ? 'block' : 'none';
+    });
+    document.querySelectorAll("[data-ai-preset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("aiQuery").value = button.dataset.aiPreset;
+        document.querySelectorAll("[data-ai-preset]").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+      });
+    });
 
     document.querySelectorAll("#navBar button").forEach((button) => {
       button.addEventListener("click", () => setRoute(button.dataset.route));
     });
 
-    document.getElementById("aiFab").addEventListener("click", () => toggleAiWidget());
-    document.getElementById("closeAiWidget").addEventListener("click", () => toggleAiWidget(false));
-    document.querySelectorAll("[data-ai-preset]").forEach((button) => {
-      button.addEventListener("click", () => {
-        document.getElementById("aiQuery").value = button.dataset.aiPreset;
-        toggleAiWidget(true);
-      });
-    });
-    document.getElementById("btnAIChatbot").addEventListener("click", () => sendAI("chat"));
-    document.getElementById("btnAIRecommend").addEventListener("click", () => sendAI("recommend"));
-    document.getElementById("amount").addEventListener("input", () => setText("paymentSummaryStatus", document.getElementById("amount").value || "0"));
-    document.getElementById("paymentOrderId").addEventListener("input", refreshTopbar);
-    document.getElementById("orderId").addEventListener("input", refreshTopbar);
-    document.getElementById("detailBackdrop").addEventListener("click", (event) => {
-      if (event.target === detailBackdrop) {
-        closeDetail();
-      }
-    });
-    document.getElementById("closeDetail").addEventListener("click", closeDetail);
-    document.getElementById("btnAddFromDetail").addEventListener("click", () => {
-      const selected = state.selectedProduct;
-      if (!selected) return;
-      document.getElementById("quantity").value = document.getElementById("detailQuantity").value || 1;
-      addCart();
-      closeDetail();
-    });
+    window.addEventListener("hashchange", () => setRoute((location.hash || "#login").replace("#", ""), true));
 
-    window.addEventListener("hashchange", routeFromHash);
-
-    (function init() {
-      const route = restoreSession();
-      if (state.currentUser && state.token) {
-        state.currentRoute = routes.includes(route) ? route : "home";
-      }
-      updateNav();
-      refreshTopbar();
-      renderChat();
-      const initialRoute = routes.includes((location.hash || "#").replace("#", ""))
-        ? (location.hash || "#login").replace("#", "")
-        : (state.currentUser ? "home" : "login");
-      setRoute(initialRoute, true);
-      if (state.currentUser) {
-        loadProducts();
-        loadCart();
-        loadOrders();
-      }
-      syncVisibleState();
-      toggleAiWidget(false);
-    })();
+    init();
   </script>
 </body>
 </html>

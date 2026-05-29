@@ -90,3 +90,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CART_SERVICE_URL = os.getenv('CART_SERVICE_URL', 'http://cart-service:8000')
 PAYMENT_SERVICE_URL = os.getenv('PAYMENT_SERVICE_URL', 'http://payment-service:8000')
 SHIPPING_SERVICE_URL = os.getenv('SHIPPING_SERVICE_URL', 'http://shipping-service:8000')
+PRODUCT_SERVICE_URL = os.getenv('PRODUCT_SERVICE_URL', 'http://product-service:8000')

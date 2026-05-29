@@ -45,8 +45,24 @@ class OrderCreateFromCartView(APIView):
 		if not items:
 			return Response({'detail': 'Không có cart item phù hợp để tạo order.'}, status=status.HTTP_400_BAD_REQUEST)
 
-		total_price = float(sum(item.get('quantity', 0) * 100 for item in items))
-		order = Order.objects.create(user_id=user_id, total_price=total_price, status=Order.STATUS_PENDING)
+		# compute total_price by fetching product prices from product-service
+		total_price = 0.0
+		try:
+			product_prices = {}
+			for item in items:
+				pid = int(item.get('product_id', 0) or 0)
+				if pid <= 0:
+					continue
+				if pid not in product_prices:
+					prod = _http_get_json(f"{settings.PRODUCT_SERVICE_URL}/products/{pid}/")
+					product_prices[pid] = float(prod.get('price', 0) or 0)
+				price = product_prices.get(pid, 0.0)
+				qty = int(item.get('quantity', 1) or 1)
+				total_price += price * qty
+		except (HTTPError, URLError, json.JSONDecodeError):
+			return Response({'detail': 'Không lấy được thông tin sản phẩm từ product-service.'}, status=status.HTTP_502_BAD_GATEWAY)
+
+		order = Order.objects.create(user_id=user_id, total_price=float(total_price), status=Order.STATUS_PENDING)
 
 		for item in items:
 			OrderItem.objects.create(
