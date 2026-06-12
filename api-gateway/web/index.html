@@ -1287,7 +1287,7 @@
               <button class="btn-ghost" id="btnAIDebugToggle" title="Toggle raw AI payload">Raw</button>
             </div>
 
-            <div class="response" id="aiResponse" style="margin-top: 12px;">Chưa có phản hồi AI.</div>
+            <!-- <div class="response" id="aiResponse" style="margin-top: 12px;">Chưa có phản hồi AI.</div> -->
             <div class="conversation" id="aiConversation" style="margin-top: 12px;"></div>
             <div id="aiDebugPanel" style="margin-top:12px; display:none;">
               <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Raw AI payload (for debugging)</div>
@@ -1926,9 +1926,33 @@
       setRoute("orders");
     }
 
-    function pushConversation(role, title, content) {
-      state.conversation.push({ role, title, content, time: new Date().toLocaleTimeString() });
-      renderConversation();
+    function pushConversation(role, sender, content, isHtml = false) {
+      const container = document.getElementById("aiConversation");
+
+      const row = document.createElement("div");
+      row.className = `message ${role}`;
+
+      const time = new Date().toLocaleTimeString();
+
+      row.innerHTML = `
+        <div class="message-bubble">
+          <div class="message-meta">
+            <span class="sender">${escapeHtml(sender)}</span>
+            <span class="time">${time}</span>
+          </div>
+
+          <div class="message-content">
+            ${
+              isHtml
+                ? content
+                : `<div class="message-text">${escapeHtml(String(content))}</div>`
+            }
+          </div>
+        </div>
+      `;
+
+      container.appendChild(row);
+      container.scrollTop = container.scrollHeight;
     }
 
     function toRawJsonText(data) {
@@ -1987,27 +2011,32 @@
     }
 
     function renderAIResponse(data) {
-      const container = document.getElementById("aiResponse");
-      console.log("AI DATA =", data);
-      console.log("TYPE =", typeof data);
-      if (!data) {
-        container.innerHTML = `
+      const payload = typeof data === "string"
+        ? (() => {
+            try {
+              return JSON.parse(data);
+            } catch {
+              return null;
+            }
+          })()
+        : data;
+
+      if (!payload) {
+        return `
           <div class="ai-empty">
             Nova AI chưa có phản hồi.
           </div>
         `;
-        return;
       }
 
-      const recommendations = Array.isArray(data.recommendations)
-        ? data.recommendations
+      const recommendations = Array.isArray(payload.recommendations)
+        ? payload.recommendations
         : [];
 
-      // title sạch
       let title = "Gợi ý sản phẩm dành cho bạn";
 
-      if (typeof data.answer === "string") {
-        const cleaned = data.answer
+      if (typeof payload.answer === "string") {
+        const cleaned = payload.answer
           .replace(/intent\s*:\s*[^,]+/ig, "")
           .replace(/recommendations\s*:.*/ig, "")
           .replace(/answer\s*:/ig, "")
@@ -2027,6 +2056,7 @@
         return `
           <div class="ai-card">
             <div class="ai-card-top">
+
               <div>
                 <div class="ai-card-title">
                   ${escapeHtml(name)}
@@ -2040,6 +2070,7 @@
               <div class="ai-card-price">
                 $${price}
               </div>
+
             </div>
 
             <div class="ai-card-actions">
@@ -2055,13 +2086,17 @@
         `;
       }).join("");
 
-      container.innerHTML = `
-        <div class="ai-header">
-          ${escapeHtml(title)}
-        </div>
+      return `
+        <div class="ai-rich-response">
 
-        <div class="ai-grid">
-          ${html}
+          <div class="ai-rich-title">
+            ${escapeHtml(title)}
+          </div>
+
+          <div class="ai-grid">
+            ${html}
+          </div>
+
         </div>
       `;
     }
@@ -2307,8 +2342,14 @@
           if (dbgEl) dbgEl.textContent = rawResponse;
         } catch (e) { /* ignore */ }
         console.debug('[AI debug] raw data:', data);
-        pushConversation("ai", "Nova AI", rawResponse);
-        renderAIResponse(rawResponse);
+        const aiHtml = renderAIResponse(data);
+
+        pushConversation(
+          "ai",
+          "Nova AI",
+          aiHtml,
+          true
+        );
       } catch (error) {
         // Friendly fallback when AI is unavailable or returned non-JSON
         let fallback = "Không thể phản hồi lúc này. Vui lòng thử lại sau.";
@@ -2318,8 +2359,16 @@
         } else if (error && error.data && error.data.detail) {
           fallback = error.data.detail;
         }
-        pushConversation("ai", "Nova AI", fallback);
-        renderAIResponse(fallback);
+        pushConversation(
+          "ai",
+          "Nova AI",
+          `
+            <div class="ai-error">
+              ${escapeHtml(fallback)}
+            </div>
+          `,
+          true
+        );
       }
     }
 
